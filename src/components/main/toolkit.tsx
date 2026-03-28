@@ -1,15 +1,10 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 
 const stackLang: string[] = [
   "Python",
   "C#",
   "C++",
-  "Java",
-  "HTML",
-  "CSS",
-  "JavaScript",
   "Node.js",
   "React.js",
   "Next.js",
@@ -30,30 +25,32 @@ export default function Toolkit() {
       },
       { threshold: 0.3 }
     );
-
     if (ref.current) observer.observe(ref.current);
-
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="w-full px-[64px] mb-24 mt-4">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
+    <section className="max-w-7xl px-[64px] mt-4">
+      <div className="flex flex-col lg:flex-row gap-16">
         {/* Left */}
-        <div className="lg:w-1/2">
-          <h2 className="text-5xl md:text-6xl lg:text-8xl font-semibold mb-6">
+        <div className="lg:w-[55%]">
+          <h2 className="font-general-sans text-5xl md:text-6xl lg:text-8xl text-[#D6D6D6] font-semibold mb-6">
             Digital Toolkit.
           </h2>
-          <p className="text-base md:text-2xl lg:text-3xl leading-relaxed">
-            My digital toolkit includes a diverse range of programming
-            languages, markup languages and frameworks. I am proficient in and
-            have experience with the following technologies.
+          <p className="text-base md:text-xl lg:text-xl leading-relaxed text-[#9E9E9E] font-semibold"
+  style={{ fontFamily: "'Euclid Circular A', 'DM Sans', sans-serif" }}>
+            My digital toolkit includes a diverse range of programming languages,
+            markup languages and frameworks. I am proficient in and have
+            experience with the following technologies.
           </p>
         </div>
 
         {/* Right */}
         <div ref={ref} className="lg:w-1/2">
-          <ul className="text-2xl md:text-4xl lg:text-6xl opacity-80 leading-tight space-y-2">
+          <ul
+            className="text-2xl md:text-4xl lg:text-6xl leading-tighter text-[#D6D6D6]"
+            style={{ fontFamily: "ClashDisplay-Bold" }}
+          >
             {stackLang.map((lang, index) => (
               <li
                 key={index}

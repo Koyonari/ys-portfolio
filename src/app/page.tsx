@@ -2,6 +2,8 @@ import Hero from "../components/main/hero";
 import AboutPara from "../components/main/aboutpara";
 import AboutScroll from "../components/main/aboutscroll";
 import Toolkit from "../components/main/toolkit";
+import Work from "../components/main/work";
+import Certs from "../components/main/certs";
 
 export default function Home() {
   return (
@@ -10,6 +12,8 @@ export default function Home() {
       <AboutScroll />
       <AboutPara />
       <Toolkit />
+      <Work />
+      <Certs />
     </div>
   )
 }

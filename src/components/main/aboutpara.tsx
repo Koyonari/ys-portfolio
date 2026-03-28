@@ -1,45 +1,50 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useLayoutEffect, useState } from "react";
 
 function ScrambleButton() {
   const [displayText, setDisplayText] = useState("READ MY BLOG");
   const [isHovering, setIsHovering] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const ticksRef = useRef(0);
   const originalText = "READ MY BLOG";
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const DURATION = 18;
 
-  const scramble = () => {
-    let iteration = 0;
-    if (intervalRef.current) clearInterval(intervalRef.current);
+  useLayoutEffect(() => {
+    if (buttonRef.current) {
+      const w = buttonRef.current.getBoundingClientRect().width;
+      buttonRef.current.style.width = `${w}px`;
+    }
+  }, []);
 
-    intervalRef.current = setInterval(() => {
-      setDisplayText(
-        originalText
-          .split("")
-          .map((char, index) => {
-            if (char === " ") return " ";
-            if (index < iteration) return originalText[index];
-            return chars[Math.floor(Math.random() * 26)];
-          })
-          .join("")
-      );
-
-      if (iteration >= originalText.length) {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        setDisplayText(originalText);
-      }
-      iteration += 1 / 2;
-    }, 30);
-  };
+  const scrambleAll = () =>
+    originalText
+      .split("")
+      .map((char) => (char === " " ? " " : chars[Math.floor(Math.random() * 26)]))
+      .join("");
 
   const handleMouseEnter = () => {
     setIsHovering(true);
-    scramble();
+    ticksRef.current = 0;
+    if (intervalRef.current) clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      ticksRef.current += 1;
+      if (ticksRef.current >= DURATION) {
+        clearInterval(intervalRef.current!);
+        intervalRef.current = null;
+        setDisplayText(originalText);
+      } else {
+        setDisplayText(scrambleAll());
+      }
+    }, 35);
   };
 
   const handleMouseLeave = () => {
     setIsHovering(false);
     if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = null;
     setDisplayText(originalText);
   };
 
@@ -51,6 +56,7 @@ function ScrambleButton() {
 
   return (
     <button
+      ref={buttonRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -65,14 +71,16 @@ function ScrambleButton() {
         borderRadius: "9999px",
         padding: "20px 36px",
         cursor: "pointer",
-        transition: "background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease",
-        transform: isHovering ? "translateY(-2px)" : "translateY(0)",
+        transition:
+          "background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease",
+        transform: isHovering
+          ? "translateY(-6px) scale(1.03)"
+          : "translateY(0) scale(1)",
         boxShadow: isHovering
-          ? "0 8px 24px rgba(0,0,0,0.4)"
-          : "0 2px 8px rgba(0,0,0,0.2)",
+          ? "0 16px 40px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.3)"
+          : "0 2px 6px rgba(0,0,0,0.25)",
         fontVariantNumeric: "tabular-nums",
         whiteSpace: "nowrap",
-        minWidth: "200px",
         textAlign: "center",
       }}
     >
@@ -150,7 +158,7 @@ export default function AboutPara() {
           gridRow: "2 / 3",
           fontFamily: "'Euclid Circular A', 'DM Sans', sans-serif",
           fontSize: "21px",
-          lineHeight: "1.6em",
+          lineHeight: "var(--tw-leading, var(--text-xl--line-height))",
           fontWeight: 700,
           color: "#D6D6D6",
           margin: 0,
