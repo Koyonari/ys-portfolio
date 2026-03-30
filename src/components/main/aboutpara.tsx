@@ -112,6 +112,7 @@ export default function AboutPara() {
         alignItems: "center",
         position: "relative",
         overflow: "hidden",
+        paddingTop: "0"
       }}
     >
       {/* Top-left label row */}
