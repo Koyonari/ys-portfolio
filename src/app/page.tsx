@@ -4,6 +4,7 @@ import AboutScroll from "../components/main/aboutscroll";
 import Toolkit from "../components/main/toolkit";
 import Work from "../components/main/work";
 import Certs from "../components/main/certs";
+import Footer from "../components/main/footer";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Toolkit />
       <Work />
       <Certs />
+      <Footer />
     </div>
   )
 }

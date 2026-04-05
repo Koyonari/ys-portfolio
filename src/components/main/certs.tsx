@@ -314,7 +314,7 @@ function CertModal({
         style={{ padding: "2rem" }}
       >
         <div
-          className="pointer-events-auto w-full max-w-xl transition-all duration-300"
+          className="pointer-events-auto w-full max-w-3xl transition-all duration-300"
           style={{
             background: "#2E2E2E",
             border: "1px solid rgba(255,255,255,0.1)",
