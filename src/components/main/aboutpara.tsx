@@ -101,7 +101,7 @@ export default function AboutPara() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#2F2F2F] w-7xl justify-between"
+      className="bg-[#2F2F2F] w-full justify-between max-w-7xl"
       style={{
         minHeight: "220px",
         padding: "48px 64px",

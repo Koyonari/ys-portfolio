@@ -99,7 +99,7 @@ export default function Hero() {
 
       <section
         ref={sectionRef}
-        className="hs relative w-screen h-screen min-h-svh overflow-hidden"
+        className="hs relative w-full h-screen min-h-svh overflow-hidden"
         style={{
           backgroundColor: "var(--bg)",
           fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",

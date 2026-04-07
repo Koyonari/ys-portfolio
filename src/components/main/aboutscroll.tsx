@@ -327,18 +327,6 @@ export default function AboutScroll() {
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
             gap: 0,
           }}>
-            {/* Label + vertical rule */}
-            <span
-              className="as-label"
-              style={{
-                marginBottom: isMobile ? "0.9rem" : "1.4rem",
-                opacity: Math.max(0, 1 - progress * 4),
-                transition: "opacity 0.35s ease",
-              }}
-            >
-              002 — About
-            </span>
-
             <div style={{
               width: "1px",
               height: isMobile ? "16px" : "clamp(18px,2.8vh,36px)",

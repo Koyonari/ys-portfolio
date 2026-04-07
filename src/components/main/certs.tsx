@@ -308,7 +308,7 @@ function CertModal({
         }}
       />
 
-      {/* Modal — vertically and horizontally centered */}
+      {/* Modal */}
       <div
         className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
         style={{ padding: "2rem" }}
