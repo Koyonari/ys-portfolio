@@ -18,7 +18,6 @@ export default function Hero() {
   return (
     <>
       <style>{`
-        /* ── Tokens ─────────────────────────────────────── */
         .hs {
           --bg:           #2F2F2F;
           --fg:           #E4E4DF;
@@ -27,12 +26,11 @@ export default function Hero() {
           --muted-bright: #7E7E78;
           --rule:         rgba(228,228,223,0.07);
           --rule-bright:  rgba(228,228,223,0.13);
-          --photo-w:      clamp(260px, 30vw, 440px);
-          --margin:       clamp(2.5rem, 5.5vw, 5rem);
+          --photo-w:      clamp(140px, 30vw, 440px);
+          --margin:       clamp(1.2rem, 4vw, 5rem);
           --ease:         cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ── Entrance ────────────────────────────────────── */
         .hs [data-a] {
           opacity: 0;
           transform: translateY(10px);
@@ -49,7 +47,6 @@ export default function Hero() {
         .hs[data-ready] [data-a="9"]  { opacity:1; transform:none; transition-delay:.80s; }
         .hs[data-ready] [data-a="10"] { opacity:1; transform:none; transition-delay:.88s; }
 
-        /* ── Works row ───────────────────────────────────── */
         .hs-work {
           transition: opacity .22s ease;
           cursor: pointer;
@@ -62,7 +59,6 @@ export default function Hero() {
         }
         .hs-work:hover .hs-work-arrow { transform: translateX(5px); }
 
-        /* ── Grid rules ──────────────────────────────────── */
         .hs-rule {
           opacity: 0;
           transition: opacity 2.2s ease;
@@ -70,7 +66,6 @@ export default function Hero() {
         .hs[data-ready] .hs-rule        { opacity:1; transition-delay:.15s; }
         .hs[data-ready] .hs-rule--late  { opacity:1; transition-delay:.80s; }
 
-        /* ── Photo wipe ──────────────────────────────────── */
         .hs-photo {
           clip-path: inset(0 0 100% 0);
           transition: clip-path 1.4s var(--ease);
@@ -78,14 +73,12 @@ export default function Hero() {
         }
         .hs[data-ready] .hs-photo { clip-path: inset(0 0 0% 0); }
 
-        /* ── BG fade ─────────────────────────────────────── */
         .hs-bg {
           opacity: 0 !important;
           transition: opacity 3s ease !important;
         }
         .hs[data-ready] .hs-bg { opacity:1 !important; }
 
-        /* ── Scroll pulse ────────────────────────────────── */
         @keyframes hs-blink {
           0%,100% { opacity:.5; } 50% { opacity:1; }
         }
@@ -94,7 +87,26 @@ export default function Hero() {
           animation-delay: 2s;
         }
 
+        /* ── Mobile: single column, photo becomes background ── */
+        @media (max-width: 639px) {
+          .hs {
+            --photo-w: 0px;
+            --margin: 1.2rem;
+          }
+          .hs-photo-col { display: none !important; }
+          .hs-name { font-size: clamp(44px, 12vw, 72px) !important; }
+          .hs-role { font-size: 10px !important; }
+          .hs-works-col { display: none !important; }
+          .hs-bio-col { display: none !important; }
+        }
 
+        /* ── Tablet ── */
+        @media (min-width: 640px) and (max-width: 1023px) {
+          .hs { --photo-w: clamp(160px, 28vw, 300px); --margin: 2rem; }
+          .hs-name { font-size: clamp(48px, 9vw, 80px) !important; }
+          .hs-works-col { display: none !important; }
+          .hs-bio-col { display: none !important; }
+        }
       `}</style>
 
       <section
@@ -109,7 +121,7 @@ export default function Hero() {
         }}
       >
 
-        {/* ══ BG image ════════════════════════════════════ */}
+        {/* BG image */}
         <Image
           src="/hero/ph2.jpg"
           alt=""
@@ -127,23 +139,20 @@ export default function Hero() {
           }}
         />
 
-        {/* ══ Vertical rules ══════════════════════════════ */}
-        {/* Left margin */}
+        {/* Vertical rules */}
         <div className="hs-rule absolute top-0 bottom-0"
           style={{ zIndex: 2, left: "var(--margin)", width: "1px", background: "var(--rule-bright)" }} />
-        {/* Column seam */}
         <div className="hs-rule absolute top-0 bottom-0"
           style={{ zIndex: 2, right: "var(--photo-w)", width: "1px", background: "var(--rule-bright)" }} />
-        {/* Inner right margin */}
         <div className="hs-rule hs-rule--late absolute top-0 bottom-0"
           style={{ zIndex: 2, right: "var(--margin)", width: "1px", background: "var(--rule)" }} />
 
-        {/* Horizontal rule above the name block */}
+        {/* Horizontal rule above name */}
         <div
           className="hs-rule hs-rule--late absolute"
           style={{
             zIndex: 2,
-            bottom: "calc(92px * 1.3 + 13px * 1.6 + var(--margin) + 14px)",
+            bottom: "calc(clamp(44px,9vw,92px) * 1.3 + 13px * 1.6 + var(--margin) + 14px)",
             left: 0,
             right: "var(--photo-w)",
             height: "1px",
@@ -151,9 +160,9 @@ export default function Hero() {
           }}
         />
 
-        {/* ══ Photo column — full height ══════════════════ */}
+        {/* Photo column */}
         <div
-          className="hs-photo relative overflow-hidden"
+          className="hs-photo hs-photo-col relative overflow-hidden"
           style={{ gridColumn: "2", gridRow: "1 / 5", zIndex: 3 }}
         >
           <Image
@@ -163,14 +172,11 @@ export default function Hero() {
             priority
             className="object-cover object-center"
           />
-          {/* Left bleed into text col */}
           <div className="absolute inset-0"
             style={{ background: "linear-gradient(to right, #2F2F2F, rgba(31,31,31,0) 110px)" }} />
-          {/* Bottom fade */}
           <div className="absolute inset-x-0 bottom-0"
             style={{ height: "55%", background: "linear-gradient(to top, #2F2F2F, transparent)" }} />
 
-          {/* Caption bottom-right */}
           <div
             data-a="2"
             className="absolute bottom-0 right-0 flex flex-col items-end"
@@ -185,7 +191,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ══ Top-left: index label ════════════════════════ */}
+        {/* Top-left: index label */}
         <div
           data-a="1"
           className="relative flex items-start"
@@ -196,9 +202,9 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* ══ Mid-left: selected works teaser ════════════ */}
+        {/* Mid-left: selected works */}
         <div
-          className="relative flex flex-col justify-center"
+          className="hs-works-col relative flex flex-col justify-center"
           style={{
             gridColumn: "1",
             gridRow: "2",
@@ -207,7 +213,6 @@ export default function Hero() {
             paddingRight: "3rem",
           }}
         >
-          {/* Section label */}
           <div
             data-a="3"
             className="flex items-center"
@@ -219,7 +224,6 @@ export default function Hero() {
             <div style={{ flex: 1, height: "1px", background: "var(--rule-bright)", maxWidth: "3rem" }} />
           </div>
 
-          {/* Work rows */}
           {[
             { n: "4", index: "01", title: "Portfolio Website", year: "2025", tags: "Next.js · UIUX" },
             { n: "5", index: "02", title: "Project Alpha", year: "2024", tags: "React · TypeScript" },
@@ -239,112 +243,71 @@ export default function Hero() {
                 ...(i === 0 ? { borderTop: "1px solid var(--rule)" } : {}),
               }}
             >
-              {/* Index */}
-              <span style={{
-                fontSize: "8px",
-                letterSpacing: "0.14em",
-                color: "var(--muted)",
-                textTransform: "uppercase",
-                fontVariantNumeric: "tabular-nums",
-                paddingTop: "1px",
-              }}>
+              <span style={{ fontSize: "8px", letterSpacing: "0.14em", color: "var(--muted)", textTransform: "uppercase", fontVariantNumeric: "tabular-nums", paddingTop: "1px" }}>
                 {work.index}
               </span>
-
-              {/* Title + tags */}
               <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-                <span style={{
-                  fontSize: "13px",
-                  letterSpacing: "-0.01em",
-                  lineHeight: 1.2,
-                  color: "var(--fg)",
-                  fontWeight: 400,
-                }}>
+                <span style={{ fontSize: "13px", letterSpacing: "-0.01em", lineHeight: 1.2, color: "var(--fg)", fontWeight: 400 }}>
                   {work.title}
                   <span className="hs-work-arrow" style={{ marginLeft: "6px", color: "var(--muted-bright)", fontSize: "11px" }}>→</span>
                 </span>
-                <span style={{
-                  fontSize: "9px",
-                  letterSpacing: "0.08em",
-                  color: "var(--muted-bright)",
-                  textTransform: "uppercase",
-                }}>
+                <span style={{ fontSize: "9px", letterSpacing: "0.08em", color: "var(--muted-bright)", textTransform: "uppercase" }}>
                   {work.tags}
                 </span>
               </div>
-
-              {/* Year */}
-              <span style={{
-                fontSize: "9px",
-                letterSpacing: "0.10em",
-                color: "var(--muted)",
-                textTransform: "uppercase",
-                fontVariantNumeric: "tabular-nums",
-              }}>
+              <span style={{ fontSize: "9px", letterSpacing: "0.10em", color: "var(--muted)", textTransform: "uppercase", fontVariantNumeric: "tabular-nums" }}>
                 {work.year}
               </span>
             </div>
           ))}
         </div>
 
-        {/* ══ Bottom-left: role + name + bio ══════════════ */}
+        {/* Bottom-left: role + name + bio */}
         <div
           className="relative grid items-end"
           style={{
             gridColumn: "1",
             gridRow: "3",
             zIndex: 4,
-            padding: "0 3rem 0 var(--margin)",
+            padding: "0 1.5rem 0 var(--margin)",
             gridTemplateColumns: "1fr auto",
           }}
         >
-          {/* Role + name */}
           <div className="flex flex-col justify-end px-2.5">
             <p
               data-a="7"
-              className="m-0 font-normal"
-              style={{ fontSize: "13px", letterSpacing: "-0.02em", lineHeight: "1.6em", color: "var(--muted-bright)" }}
+              className="hs-role m-0 font-normal"
+              style={{ fontSize: "clamp(8px, 1.1vw, 13px)", letterSpacing: "-0.02em", lineHeight: "1.6em", color: "var(--muted-bright)" }}
             >
               SOFTWARE ENGINEER / UIUX / STUDENT
             </p>
             <h1
               data-a="8"
-              className="m-0 font-extrabold uppercase"
-              style={{ fontSize: "92px", lineHeight: "1.3em", letterSpacing: "-0.02em", color: "var(--fg)" }}
+              className="hs-name m-0 font-extrabold uppercase"
+              style={{ fontSize: "clamp(44px, 9vw, 92px)", lineHeight: "1.3em", letterSpacing: "-0.02em", color: "var(--fg)" }}
             >
               YONG SHYAN
             </h1>
           </div>
 
-          {/* Bio — top aligns with role tag */}
-          <div className="flex flex-col justify-between self-stretch" style={{ paddingLeft: "2rem" }}>
+          <div className="hs-bio-col flex flex-col justify-between self-stretch" style={{ paddingLeft: "2rem" }}>
             <div className="flex flex-col items-end" style={{ gap: "5px" }}>
-              <span
-                data-a="7"
-                style={{ fontSize: "8px", letterSpacing: "0.18em", color: "var(--muted)", textTransform: "uppercase" }}
-              >
+              <span data-a="7" style={{ fontSize: "8px", letterSpacing: "0.18em", color: "var(--muted)", textTransform: "uppercase" }}>
                 Est. 2025
               </span>
               <p
                 data-a="9"
                 className="m-0 text-right"
-                style={{
-                  fontSize: "10px",
-                  letterSpacing: "-0.02em",
-                  lineHeight: "1.65em",
-                  color: "var(--muted-bright)",
-                  maxWidth: "150px",
-                }}
+                style={{ fontSize: "10px", letterSpacing: "-0.02em", lineHeight: "1.65em", color: "var(--muted-bright)", maxWidth: "150px" }}
               >
                 Hey, I&apos;m Yong Shyan, a 3rd Year Software Engineering student
               </p>
             </div>
-            {/* Spacer = name block height */}
-            <div aria-hidden="true" style={{ height: "calc(92px * 1.3)" }} />
+            <div aria-hidden="true" style={{ height: "calc(clamp(44px,9vw,92px) * 1.3)" }} />
           </div>
         </div>
 
-        {/* ══ Footer strip — text col only ════════════════ */}
+        {/* Footer strip */}
         <div
           data-a="7"
           className="relative flex items-center justify-between"
@@ -352,7 +315,7 @@ export default function Hero() {
             gridColumn: "1",
             gridRow: "4",
             zIndex: 4,
-            padding: "0 3rem 0 var(--margin)",
+            padding: "0 1.5rem 0 var(--margin)",
             borderTop: "1px solid var(--rule-bright)",
           }}
         >

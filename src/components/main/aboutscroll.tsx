@@ -3,12 +3,6 @@
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
-/* ─────────────────────────────────────────────────────────────────────────
-   IMAGE CONFIG
-   speed: parallax multiplier (negative = moves up as you scroll down)
-   initY: vertical offset from centre in vh units
-   Swiss layout: images are positioned on a disciplined invisible grid
-───────────────────────────────────────────────────────────────────────── */
 const IMAGES: {
   src: string;
   initY: number;
@@ -24,14 +18,12 @@ const IMAGES: {
   hideOnMobile?: boolean;
   hideOnTablet?: boolean;
 }[] = [
-    // SUPER FAST
     {
       initY: -40, left: "60%",
       width: "clamp(168.75px, 17.5vw, 250px)", widthMd: "clamp(112.5px, 13.75vw, 175px)", widthSm: "clamp(87.5px, 23.75vw, 125px)",
       speed: -5.0, speedMd: -3.5, speedSm: -2.0,
       delay: 0.04, aspect: "75%", src: "/hero/ph1.jpg",
     },
-    // FAST
     {
       initY: -5, left: "82%",
       width: "clamp(112.5px, 11.25vw, 165.6px)", widthMd: "clamp(75px, 8.75vw, 112.5px)", widthSm: "clamp(56.25px, 15vw, 81.25px)",
@@ -39,7 +31,6 @@ const IMAGES: {
       delay: 0.08, aspect: "150%", src: "/hero/ph1.jpg",
       hideOnMobile: true,
     },
-    // MID
     {
       initY: 80, left: "5%",
       width: "clamp(153.1px, 15vw, 218.75px)", widthMd: "clamp(100px, 11.25vw, 150px)", widthSm: "clamp(75px, 20vw, 112.5px)",
@@ -47,17 +38,10 @@ const IMAGES: {
       delay: 0.03, aspect: "75%", src: "/hero/ph2.jpg",
     },
     {
-      initY: 40,
-      left: "64%",
-      width: "clamp(165px, 17vw, 242px)",
-      widthMd: "clamp(108px, 12.5vw, 162px)",
-      widthSm: "clamp(77px, 21vw, 120px)",
-      speed: -1.6,
-      speedMd: -1.1,
-      speedSm: -0.7,
-      delay: 0.10,
-      aspect: "75%",
-      src: "/hero/ph2.jpg",
+      initY: 40, left: "64%",
+      width: "clamp(165px, 17vw, 242px)", widthMd: "clamp(108px, 12.5vw, 162px)", widthSm: "clamp(77px, 21vw, 120px)",
+      speed: -1.6, speedMd: -1.1, speedSm: -0.7,
+      delay: 0.10, aspect: "75%", src: "/hero/ph2.jpg",
       hideOnMobile: true,
     },
     {
@@ -66,7 +50,6 @@ const IMAGES: {
       speed: -1.9, speedMd: -1.3, speedSm: -0.8,
       delay: 0.07, aspect: "150%", src: "/hero/ph1.jpg",
     },
-    // SLOW DRIFTERS
     {
       initY: -10, left: "6%",
       width: "clamp(165.6px, 16.8vw, 240.6px)", widthMd: "clamp(109.3px, 12.5vw, 165.6px)", widthSm: "clamp(81.25px, 21.25vw, 118.75px)",
@@ -98,7 +81,6 @@ const LINES = [
   { text: "ABOUT ME", opacity: 1.00 },
 ];
 
-/* Breakpoints */
 const BP_TABLET = 1024;
 const BP_MOBILE = 640;
 
@@ -130,7 +112,8 @@ export default function AboutScroll() {
       const p = Math.max(0, Math.min(1, rawScrolled / total));
       setScrolled(Math.max(0, rawScrolled));
       setProgress(p);
-      if (rawScrolled > -window.innerHeight * 0.25) setEntered(true);
+      // Trigger enter as soon as the section is at all visible
+      if (rect.top < window.innerHeight * 0.85) setEntered(true);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -140,7 +123,6 @@ export default function AboutScroll() {
   const isMobile = vw < BP_MOBILE;
   const isTablet = vw >= BP_MOBILE && vw < BP_TABLET;
 
-  /* Responsive font size for ABOUT ME lines */
   const headingSize = isMobile
     ? "clamp(22px,7.5vw,32px)"
     : isTablet
@@ -162,7 +144,7 @@ export default function AboutScroll() {
           font-family:    'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        /* ── Image reveal ── */
+        /* Image reveal — clip-path wipe from bottom */
         .as-img {
           position: absolute;
           overflow: hidden;
@@ -175,26 +157,6 @@ export default function AboutScroll() {
           clip-path: inset(0 0 0% 0);
         }
 
-        /* ── Swiss rule lines ── */
-        .as-rule {
-          position: absolute;
-          background: var(--rule-bright);
-          transition: transform 1.2s var(--ease-swiss), opacity 0.8s ease;
-          transform-origin: left center;
-        }
-        .as-rule-h {
-          height: 1px;
-          transform: scaleX(0);
-        }
-        .as-rule-v {
-          width: 1px;
-          transform: scaleY(0);
-          transform-origin: top center;
-        }
-        .as-in .as-rule-h { transform: scaleX(1); }
-        .as-in .as-rule-v { transform: scaleY(1); }
-
-        /* ── Heading lines ── */
         .as-line {
           display: block;
           font-weight: 800;
@@ -203,25 +165,17 @@ export default function AboutScroll() {
           text-transform: uppercase;
           color: var(--fg);
           white-space: nowrap;
-          /* Swiss staggered translate-in */
           transform: translateY(8px);
           opacity: 0;
-          transition:
-            transform 0.7s var(--ease-swiss),
-            opacity   0.7s ease;
+          transition: transform 0.7s var(--ease-swiss), opacity 0.7s ease;
         }
-        .as-in .as-line {
-          transform: translateY(0);
-          opacity: 1;
-        }
-        /* Stagger each line via nth-child */
+        .as-in .as-line { transform: translateY(0); opacity: 1; }
         .as-in .as-line:nth-child(1) { transition-delay: 0.05s; }
         .as-in .as-line:nth-child(2) { transition-delay: 0.12s; }
         .as-in .as-line:nth-child(3) { transition-delay: 0.19s; }
         .as-in .as-line:nth-child(4) { transition-delay: 0.26s; }
         .as-in .as-line:nth-child(5) { transition-delay: 0.33s; }
 
-        /* ── Label ── */
         .as-label {
           font-size: clamp(7px, 0.9vw, 9px);
           letter-spacing: 0.20em;
@@ -230,45 +184,23 @@ export default function AboutScroll() {
           font-weight: 500;
         }
 
-        /* ── Scroll indicator ── */
         @keyframes as-pulse {
           0%,100% { opacity: 0.18; }
           50%      { opacity: 0.60; }
         }
 
-        /* ── Horizontal tick marks (Swiss grid markers) ── */
-        .as-tick {
-          position: absolute;
-          width: 1px;
-          height: 8px;
-          background: var(--rule-bright);
-          transform: scaleY(0);
-          transform-origin: top center;
-          transition: transform 0.5s var(--ease-swiss);
-        }
-        .as-in .as-tick { transform: scaleY(1); }
-
-        /* ── Counter number ── */
         .as-counter {
           font-variant-numeric: tabular-nums;
           font-feature-settings: "tnum";
-          opacity: 0;
-          transform: translateY(4px);
-          transition: opacity 0.6s ease 0.4s, transform 0.6s var(--ease-swiss) 0.4s;
-        }
-        .as-in .as-counter {
-          opacity: 0.55;
-          transform: translateY(0);
         }
       `}</style>
 
-      {/* 160vh scroll container */}
       <div
         ref={sectionRef}
         className="as relative w-full flex flex-col items-center"
         style={{ height: "160vh", backgroundColor: "var(--bg)" }}
       >
-        {/* Gradient bridge from Hero */}
+        {/* Gradient bridge */}
         <div aria-hidden="true" style={{
           position: "absolute", top: 0, left: 0, right: 0,
           height: "clamp(60px,12vh,200px)",
@@ -276,14 +208,15 @@ export default function AboutScroll() {
           zIndex: 20, pointerEvents: "none",
         }} />
 
-        {/* ── Sticky viewport ── */}
+        {/* Sticky viewport — NO overflow:hidden so images aren't clipped */}
         <div
-          className={`sticky top-0 w-full max-w-[1280px] ${entered ? " as-in" : ""}`}
-          style={{ height: "100vh", overflow: "hidden" }}
+          className={`sticky top-0 w-full${entered ? " as-in" : ""}`}
+          style={{ height: "100vh", overflow: "visible", position: "sticky" }}
         >
+          {/* Clip mask so images don't bleed outside the viewport visually */}
+          <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 0 }}>
 
-          {/* ── Image layer ── */}
-          <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
+            {/* Image layer */}
             {IMAGES.map((img, i) => {
               if (isMobile && img.hideOnMobile) return null;
               if (isTablet && img.hideOnTablet) return null;
@@ -319,13 +252,10 @@ export default function AboutScroll() {
             })}
           </div>
 
-
-
-          {/* ── Centered ABOUT ME block ── */}
+          {/* Centered ABOUT ME block */}
           <div style={{
             position: "absolute", inset: 0, zIndex: 5, pointerEvents: "none",
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-            gap: 0,
           }}>
             <div style={{
               width: "1px",
@@ -336,17 +266,9 @@ export default function AboutScroll() {
               transition: "opacity 0.35s ease",
             }} />
 
-            {/* ABOUT ME lines */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1px" }}>
               {LINES.map((line, i) => (
-                <span
-                  key={i}
-                  className="as-line"
-                  style={{
-                    fontSize: headingSize,
-                    opacity: line.opacity, // NOTE: overridden by CSS animation initially
-                  }}
-                >
+                <span key={i} className="as-line" style={{ fontSize: headingSize, opacity: line.opacity }}>
                   {line.text}
                 </span>
               ))}
@@ -361,7 +283,6 @@ export default function AboutScroll() {
               transition: "opacity 0.35s ease",
             }} />
 
-            {/* Scroll cue */}
             <div style={{
               marginTop: isMobile ? "1.2rem" : "1.8rem",
               display: "flex", flexDirection: "column", alignItems: "center", gap: "4px",
@@ -378,38 +299,29 @@ export default function AboutScroll() {
             </div>
           </div>
 
-          {/* ── Bottom-left: progress counter ── */}
-          <div style={{
-            position: "absolute",
-            bottom: "var(--margin)",
-            left: "var(--margin)",
-            zIndex: 7,
-          }}>
-            <span className={`as-label as-counter`} style={{
+          {/* Bottom-left: progress counter */}
+          <div style={{ position: "absolute", bottom: "var(--margin)", left: "var(--margin)", zIndex: 7 }}>
+            <span className="as-label as-counter" style={{
               opacity: entered ? 0.55 : 0,
               transform: entered ? "translateY(0)" : "translateY(4px)",
               transition: "opacity 0.6s ease 0.4s, transform 0.6s cubic-bezier(0.25,0.1,0.25,1) 0.4s",
+              display: "block",
             }}>
               {String(Math.round(progress * 100)).padStart(3, "0")} %
             </span>
           </div>
 
-          {/* ── Bottom-right: year ── */}
-          <div style={{
-            position: "absolute",
-            bottom: "var(--margin)",
-            right: "var(--margin)",
-            zIndex: 7,
-          }}>
+          {/* Bottom-right: year */}
+          <div style={{ position: "absolute", bottom: "var(--margin)", right: "var(--margin)", zIndex: 7 }}>
             <span className="as-label" style={{
               opacity: entered ? 0.55 : 0,
               transform: entered ? "translateY(0)" : "translateY(4px)",
               transition: "opacity 0.6s ease 0.45s, transform 0.6s cubic-bezier(0.25,0.1,0.25,1) 0.45s",
+              display: "block",
             }}>
               2025
             </span>
           </div>
-
         </div>
       </div>
     </>

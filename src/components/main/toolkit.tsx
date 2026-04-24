@@ -30,38 +30,56 @@ export default function Toolkit() {
   }, []);
 
   return (
-    <section className="max-w-7xl px-[64px] mt-4">
-      <div className="flex flex-col lg:flex-row gap-16">
-        {/* Left */}
-        <div className="lg:w-[55%]">
-          <h2 className="font-general-sans text-5xl md:text-6xl lg:text-8xl text-[#D6D6D6] font-semibold mb-6">
-            Digital Toolkit.
-          </h2>
-          <p className="text-base md:text-xl lg:text-xl leading-relaxed text-[#9E9E9E] font-semibold"
-  style={{ fontFamily: "'Euclid Circular A', 'DM Sans', sans-serif" }}>
-            My digital toolkit includes a diverse range of programming languages,
-            markup languages and frameworks. I am proficient in and have
-            experience with the following technologies.
-          </p>
-        </div>
+    <section className="w-full bg-[#2F2F2F]">
+      <div className="mx-auto max-w-7xl px-[clamp(1.5rem,5vw,64px)] py-12 md:py-16">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+          {/* Left */}
+          <div className="lg:w-[55%]">
+            <h2
+              className="text-[#D6D6D6] font-semibold mb-6"
+              style={{
+                fontFamily: "'Euclid Circular A', 'DM Sans', sans-serif",
+                fontSize: "clamp(2.5rem, 7vw, 6rem)",
+                lineHeight: 1.1,
+              }}
+            >
+              Digital Toolkit.
+            </h2>
+            <p
+              className="leading-relaxed text-[#9E9E9E] font-semibold"
+              style={{
+                fontFamily: "'Euclid Circular A', 'DM Sans', sans-serif",
+                fontSize: "clamp(0.95rem, 1.3vw, 1.25rem)",
+              }}
+            >
+              My digital toolkit includes a diverse range of programming languages,
+              markup languages and frameworks. I am proficient in and have
+              experience with the following technologies.
+            </p>
+          </div>
 
-        {/* Right */}
-        <div ref={ref} className="lg:w-1/2">
-          <ul
-            className="text-2xl md:text-4xl lg:text-6xl leading-tighter text-[#D6D6D6]"
-            style={{ fontFamily: "ClashDisplay-Bold" }}
-          >
-            {stackLang.map((lang, index) => (
-              <li
-                key={index}
-                className={`transform transition-all duration-500 ease-out
-                  ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                {lang}
-              </li>
-            ))}
-          </ul>
+          {/* Right */}
+          <div ref={ref} className="lg:w-1/2">
+            <ul
+              className="text-[#D6D6D6] leading-tight"
+              style={{
+                fontFamily: "ClashDisplay-Bold",
+                fontSize: "clamp(1.5rem, 5vw, 4rem)",
+              }}
+            >
+              {stackLang.map((lang, index) => (
+                <li
+                  key={index}
+                  className={`transform transition-all duration-500 ease-out ${
+                    visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  {lang}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
