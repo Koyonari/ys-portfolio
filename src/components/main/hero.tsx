@@ -121,7 +121,7 @@ export default function Hero() {
         }}
       >
 
-        {/* BG image */}
+        {/* Background image */}
         <Image
           src="/hero/ph2.jpg"
           alt=""
@@ -147,7 +147,7 @@ export default function Hero() {
         <div className="hs-rule hs-rule--late absolute top-0 bottom-0"
           style={{ zIndex: 2, right: "var(--margin)", width: "1px", background: "var(--rule)" }} />
 
-        {/* Horizontal rule above name */}
+        {/* Horizontal rule */}
         <div
           className="hs-rule hs-rule--late absolute"
           style={{
@@ -191,7 +191,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Top-left: index label */}
+        {/* Label */}
         <div
           data-a="1"
           className="relative flex items-start"
@@ -202,7 +202,7 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* Mid-left: selected works */}
+        {/* Selected works */}
         <div
           className="hs-works-col relative flex flex-col justify-center"
           style={{
@@ -262,7 +262,7 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* Bottom-left: role + name + bio */}
+        {/* Role + name + bio */}
         <div
           className="relative grid items-end"
           style={{
@@ -293,7 +293,7 @@ export default function Hero() {
           <div className="hs-bio-col flex flex-col justify-between self-stretch" style={{ paddingLeft: "2rem" }}>
             <div className="flex flex-col items-end" style={{ gap: "5px" }}>
               <span data-a="7" style={{ fontSize: "8px", letterSpacing: "0.18em", color: "var(--muted)", textTransform: "uppercase" }}>
-                Est. 2025
+                Est. 2026
               </span>
               <p
                 data-a="9"

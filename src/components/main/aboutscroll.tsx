@@ -7,6 +7,7 @@ const IMAGES: {
   src: string;
   initY: number;
   left: string;
+  leftMobile?: string;
   width: string;
   widthMd: string;
   widthSm: string;
@@ -19,57 +20,52 @@ const IMAGES: {
   hideOnTablet?: boolean;
 }[] = [
     {
-      initY: -40, left: "60%",
-      width: "clamp(168.75px, 17.5vw, 250px)", widthMd: "clamp(112.5px, 13.75vw, 175px)", widthSm: "clamp(87.5px, 23.75vw, 125px)",
-      speed: -5.0, speedMd: -3.5, speedSm: -2.0,
+      initY: -40, left: "60%", leftMobile: "72%",
+      width: "clamp(168.75px, 17.5vw, 250px)", widthMd: "clamp(112.5px, 13.75vw, 175px)", widthSm: "clamp(100px, 26vw, 150px)",
+      speed: -5.0, speedMd: -3.5, speedSm: -3.0,
       delay: 0.04, aspect: "75%", src: "/hero/ph1.jpg",
     },
     {
-      initY: -5, left: "82%",
-      width: "clamp(112.5px, 11.25vw, 165.6px)", widthMd: "clamp(75px, 8.75vw, 112.5px)", widthSm: "clamp(56.25px, 15vw, 81.25px)",
-      speed: -2.8, speedMd: -2.0, speedSm: -1.4,
+      initY: -5, left: "82%", leftMobile: "8%",
+      width: "clamp(112.5px, 11.25vw, 165.6px)", widthMd: "clamp(75px, 8.75vw, 112.5px)", widthSm: "clamp(85px, 22vw, 120px)",
+      speed: -2.8, speedMd: -2.0, speedSm: -2.0,
       delay: 0.08, aspect: "150%", src: "/hero/ph1.jpg",
-      hideOnMobile: true,
     },
     {
-      initY: 80, left: "5%",
-      width: "clamp(153.1px, 15vw, 218.75px)", widthMd: "clamp(100px, 11.25vw, 150px)", widthSm: "clamp(75px, 20vw, 112.5px)",
-      speed: -1.6, speedMd: -1.1, speedSm: -0.7,
+      initY: 80, left: "5%", leftMobile: "5%",
+      width: "clamp(153.1px, 15vw, 218.75px)", widthMd: "clamp(100px, 11.25vw, 150px)", widthSm: "clamp(95px, 24vw, 140px)",
+      speed: -1.6, speedMd: -1.1, speedSm: -1.2,
       delay: 0.03, aspect: "75%", src: "/hero/ph2.jpg",
     },
     {
-      initY: 40, left: "64%",
-      width: "clamp(165px, 17vw, 242px)", widthMd: "clamp(108px, 12.5vw, 162px)", widthSm: "clamp(77px, 21vw, 120px)",
-      speed: -1.6, speedMd: -1.1, speedSm: -0.7,
+      initY: 40, left: "64%", leftMobile: "73%",
+      width: "clamp(165px, 17vw, 242px)", widthMd: "clamp(108px, 12.5vw, 162px)", widthSm: "clamp(90px, 23vw, 130px)",
+      speed: -1.6, speedMd: -1.1, speedSm: -1.4,
       delay: 0.10, aspect: "75%", src: "/hero/ph2.jpg",
-      hideOnMobile: true,
     },
     {
-      initY: -36, left: "26%",
-      width: "clamp(121.8px, 12.5vw, 175px)", widthMd: "clamp(81.25px, 9.3vw, 125px)", widthSm: "clamp(62.5px, 16.25vw, 93.7px)",
-      speed: -1.9, speedMd: -1.3, speedSm: -0.8,
+      initY: -36, left: "26%", leftMobile: "3%",
+      width: "clamp(121.8px, 12.5vw, 175px)", widthMd: "clamp(81.25px, 9.3vw, 125px)", widthSm: "clamp(80px, 20vw, 115px)",
+      speed: -1.9, speedMd: -1.3, speedSm: -1.6,
       delay: 0.07, aspect: "150%", src: "/hero/ph1.jpg",
     },
     {
-      initY: -10, left: "6%",
-      width: "clamp(165.6px, 16.8vw, 240.6px)", widthMd: "clamp(109.3px, 12.5vw, 165.6px)", widthSm: "clamp(81.25px, 21.25vw, 118.75px)",
-      speed: -0.7, speedMd: -0.5, speedSm: -0.3,
+      initY: -10, left: "6%", leftMobile: "75%",
+      width: "clamp(165.6px, 16.8vw, 240.6px)", widthMd: "clamp(109.3px, 12.5vw, 165.6px)", widthSm: "clamp(90px, 23vw, 130px)",
+      speed: -0.7, speedMd: -0.5, speedSm: -0.5,
       delay: 0.09, aspect: "75%", src: "/hero/ph1.jpg",
-      hideOnTablet: true, hideOnMobile: true,
     },
     {
-      initY: 50, left: "78%",
-      width: "clamp(103.1px, 10.6vw, 153.1px)", widthMd: "clamp(68.75px, 8.1vw, 103.1px)", widthSm: "clamp(50px, 13.75vw, 75px)",
-      speed: -0.6, speedMd: -0.4, speedSm: -0.25,
+      initY: 50, left: "78%", leftMobile: "72%",
+      width: "clamp(103.1px, 10.6vw, 153.1px)", widthMd: "clamp(68.75px, 8.1vw, 103.1px)", widthSm: "clamp(75px, 19vw, 110px)",
+      speed: -0.6, speedMd: -0.4, speedSm: -0.5,
       delay: 0.13, aspect: "150%", src: "/hero/ph2.jpg",
-      hideOnMobile: true,
     },
     {
-      initY: 60, left: "22.5%",
-      width: "clamp(146.8px, 15vw, 215.6px)", widthMd: "clamp(96.8px, 11.25vw, 143.7px)", widthSm: "clamp(68.75px, 18.75vw, 100px)",
-      speed: -0.9, speedMd: -0.6, speedSm: -0.35,
+      initY: 60, left: "22.5%", leftMobile: "2%",
+      width: "clamp(146.8px, 15vw, 215.6px)", widthMd: "clamp(96.8px, 11.25vw, 143.7px)", widthSm: "clamp(85px, 22vw, 120px)",
+      speed: -0.9, speedMd: -0.6, speedSm: -0.7,
       delay: 0.05, aspect: "150%", src: "/hero/ph1.jpg",
-      hideOnTablet: true, hideOnMobile: true,
     },
   ];
 
@@ -89,6 +85,7 @@ export default function AboutScroll() {
   const [scrolled, setScrolled] = useState(0);
   const [progress, setProgress] = useState(0);
   const [entered, setEntered] = useState(false);
+  const [sectionHeight, setSectionHeight] = useState(0);
   const [vhPx, setVhPx] = useState(800);
   const [vw, setVw] = useState(1440);
 
@@ -96,6 +93,9 @@ export default function AboutScroll() {
     const update = () => {
       setVhPx(window.innerHeight / 100);
       setVw(window.innerWidth);
+      if (sectionRef.current) {
+        setSectionHeight(sectionRef.current.offsetHeight);
+      }
     };
     update();
     window.addEventListener("resize", update);
@@ -112,13 +112,13 @@ export default function AboutScroll() {
       const p = Math.max(0, Math.min(1, rawScrolled / total));
       setScrolled(Math.max(0, rawScrolled));
       setProgress(p);
-      // Trigger enter as soon as the section is at all visible
+      if (!sectionHeight && el.offsetHeight) setSectionHeight(el.offsetHeight);
       if (rect.top < window.innerHeight * 0.85) setEntered(true);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [sectionHeight]);
 
   const isMobile = vw < BP_MOBILE;
   const isTablet = vw >= BP_MOBILE && vw < BP_TABLET;
@@ -144,7 +144,6 @@ export default function AboutScroll() {
           font-family:    'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        /* Image reveal — clip-path wipe from bottom */
         .as-img {
           position: absolute;
           overflow: hidden;
@@ -197,7 +196,7 @@ export default function AboutScroll() {
 
       <div
         ref={sectionRef}
-        className="as relative w-full flex flex-col items-center"
+        className="as relative w-full"
         style={{ height: "160vh", backgroundColor: "var(--bg)" }}
       >
         {/* Gradient bridge */}
@@ -208,22 +207,21 @@ export default function AboutScroll() {
           zIndex: 20, pointerEvents: "none",
         }} />
 
-        {/* Sticky viewport — NO overflow:hidden so images aren't clipped */}
+        {/* Sticky viewport */}
         <div
           className={`sticky top-0 w-full${entered ? " as-in" : ""}`}
           style={{ height: "100vh", overflow: "visible", position: "sticky" }}
         >
-          {/* Clip mask so images don't bleed outside the viewport visually */}
+          {/* Images */}
           <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 0 }}>
-
-            {/* Image layer */}
             {IMAGES.map((img, i) => {
-              if (isMobile && img.hideOnMobile) return null;
               if (isTablet && img.hideOnTablet) return null;
 
+              // Size and speed based on breakpoint
               const width = isMobile ? img.widthSm : isTablet ? img.widthMd : img.width;
               const speed = isMobile ? img.speedSm : isTablet ? img.speedMd : img.speed;
-              const baseTop = (50 + img.initY) * vhPx;
+
+              const baseTop = (50 + img.initY * (isMobile ? 0.55 : 1.0)) * vhPx;
               const translateY = scrolled * speed;
 
               return (
@@ -232,7 +230,7 @@ export default function AboutScroll() {
                   className="as-img"
                   style={{
                     top: `${baseTop}px`,
-                    left: img.left,
+                    left: isMobile && img.leftMobile ? img.leftMobile : img.left,
                     width,
                     "--d": `${img.delay}s`,
                     transform: `translateY(${translateY}px)`,
@@ -244,7 +242,7 @@ export default function AboutScroll() {
                       alt=""
                       fill
                       className="object-cover"
-                      sizes={isMobile ? "40vw" : isTablet ? "22vw" : "22vw"}
+                      sizes={isMobile ? "30vw" : isTablet ? "22vw" : "22vw"}
                     />
                   </div>
                 </div>
@@ -252,7 +250,7 @@ export default function AboutScroll() {
             })}
           </div>
 
-          {/* Centered ABOUT ME block */}
+          {/* About me */}
           <div style={{
             position: "absolute", inset: 0, zIndex: 5, pointerEvents: "none",
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
@@ -299,7 +297,7 @@ export default function AboutScroll() {
             </div>
           </div>
 
-          {/* Bottom-left: progress counter */}
+          {/* Progress counter */}
           <div style={{ position: "absolute", bottom: "var(--margin)", left: "var(--margin)", zIndex: 7 }}>
             <span className="as-label as-counter" style={{
               opacity: entered ? 0.55 : 0,
@@ -311,7 +309,7 @@ export default function AboutScroll() {
             </span>
           </div>
 
-          {/* Bottom-right: year */}
+          {/* Year */}
           <div style={{ position: "absolute", bottom: "var(--margin)", right: "var(--margin)", zIndex: 7 }}>
             <span className="as-label" style={{
               opacity: entered ? 0.55 : 0,

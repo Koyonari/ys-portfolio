@@ -134,7 +134,7 @@ export default function AboutPara() {
           <div style={{ height: "1px", width: "180px", backgroundColor: "#9E9E9E", opacity: 0.6 }} />
         </div>
 
-        {/* Content row: paragraph + button */}
+        {/* Content paragraph + button */}
         <div
           style={{
             display: "flex",

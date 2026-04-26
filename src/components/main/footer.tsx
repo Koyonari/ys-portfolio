@@ -61,14 +61,11 @@ export default function Footer() {
         .link-hover:hover::after { width: 100%; }
       `}</style>
 
-      {/* Footer is always full width */}
       <section ref={sectionRef} className="w-full bg-[#111] text-[#f0ede8] font-sans">
-
-        {/* Upper grid — constrained */}
         <div className="mx-auto max-w-7xl px-[clamp(1.25rem,4vw,4rem)] py-12 md:py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
 
-            {/* PAGES */}
+            {/* Pages */}
             <div className={`text-xs ${fade("delay-[0ms]")}`}>
               <p className="lg:text-xs text-sm font-bold uppercase tracking-widest mb-4">Pages</p>
               <nav className="flex flex-col gap-2.5">
@@ -78,7 +75,7 @@ export default function Footer() {
               </nav>
             </div>
 
-            {/* SOCIAL */}
+            {/* Social */}
             <div className={`text-xs ${fade("delay-[80ms]")}`}>
               <p className="lg:text-xs text-sm font-bold uppercase tracking-widest mb-4">Social</p>
               <nav className="flex flex-col gap-2.5">
@@ -88,7 +85,7 @@ export default function Footer() {
               </nav>
             </div>
 
-            {/* CONTACT */}
+            {/* Contact */}
             <div className={`text-xs ${fade("delay-[160ms]")}`}>
               <p className="lg:text-xs text-sm font-bold uppercase tracking-widest mb-4">Contact</p>
               <nav className="flex flex-col gap-2.5">
@@ -98,7 +95,7 @@ export default function Footer() {
               </nav>
             </div>
 
-            {/* BACKGROUND */}
+            {/* Background */}
             <div className={`text-xs col-span-2 md:col-span-1 ${fade("delay-[240ms]")}`}>
               <p className="lg:text-xs text-sm font-bold uppercase tracking-widest mb-4">Background</p>
               <p className="lg:text-sm text-[#f0ede8]/55 leading-relaxed mb-3">BALLS BALLS BALLS</p>
@@ -128,7 +125,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Wordmark — full width, no constraint */}
+        {/* Name */}
         <div className="overflow-hidden w-full">
           <div
             className={`font-black uppercase leading-none tracking-tight transition-all duration-[1100ms] ease-out delay-300 text-center mb-2 lg:mb-0 ${entered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}

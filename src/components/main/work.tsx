@@ -7,6 +7,9 @@ interface WorkItem {
   year: string;
   title: string;
   category: string;
+  description: string;
+  techStack: string[];
+  githubUrl: string;
   imageSrc: string;
   imageAlt: string;
 }
@@ -17,6 +20,9 @@ const works: WorkItem[] = [
     year: "2025",
     title: "Una Villa Contemporanea dal Carattere Sartoriale",
     category: "Residenziale",
+    description: "A contemporary residential project exploring the intersection of bespoke craftsmanship and modern spatial design. Every detail was considered from first principles.",
+    techStack: ["Next.js", "TypeScript", "TailwindCSS", "Framer Motion"],
+    githubUrl: "https://github.com",
     imageSrc: "/images/work-01.jpg",
     imageAlt: "Contemporary villa interior with modular grey sofa",
   },
@@ -25,6 +31,9 @@ const works: WorkItem[] = [
     year: "2024",
     title: "Appartamento Minimalista nel Cuore della Città",
     category: "Residenziale",
+    description: "A minimalist city apartment designed around negative space and natural light. Clean lines and a restrained palette create an environment of calm focus.",
+    techStack: ["React", "Node.js", "PostgreSQL", "Prisma"],
+    githubUrl: "https://github.com",
     imageSrc: "/images/work-02.jpg",
     imageAlt: "Minimalist apartment interior",
   },
@@ -33,6 +42,9 @@ const works: WorkItem[] = [
     year: "2024",
     title: "Studio Creativo per un Brand di Moda",
     category: "Commerciale",
+    description: "A creative studio built for a fashion brand requiring flexibility and visual impact. The space doubles as both a working environment and a content production stage.",
+    techStack: ["Python", "FastAPI", "React", "Docker"],
+    githubUrl: "https://github.com",
     imageSrc: "/images/work-03.jpg",
     imageAlt: "Creative studio space for a fashion brand",
   },
@@ -41,6 +53,9 @@ const works: WorkItem[] = [
     year: "2023",
     title: "Penthouse con Vista Panoramica sulla Città",
     category: "Residenziale",
+    description: "A penthouse with panoramic views where architecture dissolves into the cityscape. The design prioritises the horizon as the primary design element throughout.",
+    techStack: ["C#", ".NET", "React", "Azure"],
+    githubUrl: "https://github.com",
     imageSrc: "/images/work-04.jpg",
     imageAlt: "Penthouse with panoramic city view",
   },
@@ -59,12 +74,24 @@ export default function Work() {
   const activeIndexRef = useRef(0);
   const [vw, setVw] = useState(1440);
   const [cardWidth, setCardWidth] = useState(0);
+  const [selectedWork, setSelectedWork] = useState<WorkItem | null>(null);
+  const [panelVisible, setPanelVisible] = useState(false);
 
   const isMobile = vw < 640;
   const isTablet = vw >= 640 && vw < 1024;
 
   const totalCount = String(works.length).padStart(2, "0");
   const currentNumber = String(activeIndex + 1).padStart(2, "0");
+
+  const openPanel = (work: WorkItem) => {
+    setSelectedWork(work);
+    setTimeout(() => setPanelVisible(true), 10);
+  };
+
+  const closePanel = () => {
+    setPanelVisible(false);
+    setTimeout(() => setSelectedWork(null), 380);
+  };
 
   const measureCardWidth = useCallback(() => {
     if (!rightPanelRef.current) return;
@@ -87,6 +114,7 @@ export default function Work() {
   }, [isMobile, isTablet, measureCardWidth]);
 
   useEffect(() => {
+    if (isMobile) return;
     const section = sectionRef.current;
     const track = trackRef.current;
     if (!section || !track) return;
@@ -101,11 +129,9 @@ export default function Work() {
       const scrolled = Math.max(0, -rect.top);
       const totalScrollDistance = section.offsetHeight - window.innerHeight;
       if (totalScrollDistance <= 0) return;
-
       const rawProgress = Math.min(scrolled / totalScrollDistance, 1);
       const snappedIndex = Math.round(rawProgress * (works.length - 1));
       track.style.transform = `translateX(-${snappedIndex * getStepSize()}px)`;
-
       if (snappedIndex !== activeIndexRef.current) {
         activeIndexRef.current = snappedIndex;
         setActiveIndex(snappedIndex);
@@ -115,7 +141,17 @@ export default function Work() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [cardWidth]);
+  }, [cardWidth, isMobile]);
+
+  // Lock body scroll when panel open
+  useEffect(() => {
+    if (selectedWork) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [selectedWork]);
 
   return (
     <>
@@ -130,60 +166,89 @@ export default function Work() {
       <div
         ref={sectionRef}
         className="relative w-full"
-        style={{ height: `calc(${(works.length - 1) * SCROLL_PER_STEP_VH}vh + 100vh)` }}
+        style={{
+          height: isMobile ? "auto" : `calc(${(works.length - 1) * SCROLL_PER_STEP_VH}vh + 100vh)`,
+          backgroundColor: "#2F2F2F",
+        }}
       >
-        <div className="sticky top-0 h-screen overflow-hidden">
+        {/* Mobile view */}
+        {isMobile ? (
+          <div
+            style={{
+              width: "100%",
+              padding: "clamp(2.5rem,8vw,4rem) clamp(1.25rem,5vw,2rem)",
+              fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+            }}
+          >
+            {/* Header */}
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "clamp(2rem,6vw,3rem)" }}>
+              <h2 style={{ fontSize: "clamp(28px,8vw,40px)", fontWeight: 700, color: "#D6D6D6", lineHeight: 1, margin: 0, letterSpacing: "-0.02em" }}>
+                Recent Works
+              </h2>
+              <span style={{ fontSize: "8px", letterSpacing: "0.22em", color: "rgba(228,228,223,0.22)", textTransform: "uppercase", fontVariantNumeric: "tabular-nums" }}>
+                {String(works.length).padStart(2, "0")} projects
+              </span>
+            </div>
 
-          {/* ── MOBILE: title above cards ── */}
-          {isMobile ? (
-            <div className="w-full h-full flex flex-col">
-              <div className="shrink-0 flex items-center justify-between px-5 pt-8 pb-4">
-                <h2
-                  className="font-bold text-[#D6D6D6]"
+            {/* List */}
+            <div>
+              {works.map((work, i) => (
+                <button
+                  key={work.id}
+                  onClick={() => openPanel(work)}
                   style={{
-                    fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    fontSize: "clamp(28px,8vw,44px)",
-                    lineHeight: 1,
-                    fontWeight: 700,
+                    width: "100%",
+                    background: "none",
+                    border: "none",
+                    borderTop: "1px solid rgba(228,228,223,0.07)",
+                    padding: "20px 0",
+                    display: "grid",
+                    gridTemplateColumns: "2.25rem 1fr auto",
+                    alignItems: "start",
+                    gap: "14px",
+                    cursor: "pointer",
+                    textAlign: "left",
+                    ...(i === works.length - 1 ? { borderBottom: "1px solid rgba(228,228,223,0.07)" } : {}),
                   }}
                 >
-                  Recent Works
-                </h2>
-                <div className="flex flex-col items-end shrink-0" style={{ fontFamily: "'Merriweather', Georgia, serif" }}>
-                  <span key={currentNumber} style={{ fontSize: "clamp(20px,5.5vw,32px)", color: "#D6D6D6", fontWeight: 400, lineHeight: 1, animation: "fadeSlideIn 0.35s ease forwards" }}>
-                    {currentNumber}
+                  <span style={{ fontSize: "9px", letterSpacing: "0.14em", color: "rgba(228,228,223,0.22)", textTransform: "uppercase", fontVariantNumeric: "tabular-nums", paddingTop: "2px" }}>
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                  <div style={{ width: "24px", height: "1px", background: "#D6D6D6", opacity: 0.35, margin: "5px 0" }} />
-                  <span style={{ fontSize: "clamp(20px,5.5vw,32px)", color: "#D6D6D6", opacity: 0.28, fontWeight: 400, lineHeight: 1 }}>
-                    {totalCount}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
+                    <p style={{ fontSize: "clamp(13px,3.8vw,15px)", fontWeight: 400, color: "#D6D6D6", margin: 0, lineHeight: 1.35, letterSpacing: "-0.01em" }}>
+                      {work.title}
+                    </p>
+                    <span style={{ fontSize: "8px", letterSpacing: "0.18em", color: "rgba(228,228,223,0.35)", textTransform: "uppercase" }}>
+                      {work.category}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: "16px", color: "rgba(228,228,223,0.25)", paddingTop: "0px", lineHeight: 1 }}>
+                    ↗
                   </span>
-                </div>
-              </div>
-
-              <div ref={rightPanelRef} className="flex-1 overflow-hidden flex items-center">
-                <div
-                  ref={trackRef}
-                  className="flex items-center"
-                  style={{ willChange: "transform", gap: `${CARD_GAP}px`, transition: "transform 0.45s cubic-bezier(0.4,0,0.2,1)", paddingLeft: "clamp(1rem,5vw,2rem)" }}
-                >
-                  {works.map((work, i) => (
-                    <WorkCard key={work.id} work={work} isActive={i === activeIndex} cardPx={cardWidth} />
-                  ))}
-                </div>
-              </div>
+                </button>
+              ))}
             </div>
-          ) : (
-            /* ── DESKTOP / TABLET: left panel + right cards ── */
+
+            {/* Bottom rule */}
+            <div style={{ marginTop: "2.5rem", display: "flex", alignItems: "center", gap: "14px" }}>
+              <div style={{ height: "1px", flex: 1, background: "rgba(228,228,223,0.06)" }} />
+              <span style={{ fontSize: "7px", letterSpacing: "0.24em", color: "rgba(228,228,223,0.18)", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+                Selected work 2023–2025
+              </span>
+              <div style={{ height: "1px", flex: 1, background: "rgba(228,228,223,0.06)" }} />
+            </div>
+          </div>
+        ) : (
+          /* Desktop view */
+          <div className="sticky top-0 h-screen overflow-hidden">
             <div className="w-full h-full flex">
-              {/* Left panel — width driven by clamp so it never overflows */}
               <div
                 className="shrink-0 flex flex-col justify-center z-10"
                 style={{
                   width: isTablet ? "clamp(160px,20vw,220px)" : "clamp(220px,20vw,320px)",
+                  maxWidth: isTablet ? "220px" : "320px",
                   paddingLeft: isTablet ? "clamp(14px,2.5vw,24px)" : "clamp(24px,3vw,44px)",
                   paddingRight: isTablet ? "12px" : "clamp(12px,1.5vw,28px)",
-                  // Hard max so it can never eat into card space
-                  maxWidth: isTablet ? "220px" : "320px",
                 }}
               >
                 <h2
@@ -197,9 +262,7 @@ export default function Work() {
                 >
                   Recent<br />Works
                 </h2>
-
                 <div style={{ height: isTablet ? "14px" : "24px" }} />
-
                 <div className="flex flex-col">
                   <div
                     key={currentNumber}
@@ -232,7 +295,6 @@ export default function Work() {
                 </div>
               </div>
 
-              {/* Right panel — takes all remaining width */}
               <div ref={rightPanelRef} className="flex-1 overflow-hidden flex items-center min-w-0">
                 <div
                   ref={trackRef}
@@ -245,9 +307,157 @@ export default function Work() {
                 </div>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
+
+      {/* Mobile panel */}
+      {selectedWork && (
+        <>
+          {/* Backdrop */}
+          <div
+            onClick={closePanel}
+            style={{
+              position: "fixed", inset: 0, zIndex: 50,
+              background: "rgba(0,0,0,0.1)",
+              backdropFilter: "blur(4px)",
+              opacity: panelVisible ? 1 : 0,
+              transition: "opacity 0.35s ease",
+            }}
+          />
+
+          {/* Slide up panel */}
+          <div
+            style={{
+              position: "fixed",
+              bottom: 0, left: 0, right: 0,
+              zIndex: 51,
+              background: "#1E1E1E",
+              borderTop: "1px solid rgba(228,228,223,0.1)",
+              borderRadius: "16px 16px 0 0",
+              maxHeight: "88vh",
+              overflowY: "auto",
+              transform: panelVisible ? "translateY(0)" : "translateY(100%)",
+              transition: "transform 0.38s cubic-bezier(0.16,1,0.3,1)",
+              fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+            }}
+          >
+            {/* Drag handle */}
+            <div style={{ display: "flex", justifyContent: "center", paddingTop: "12px", paddingBottom: "4px" }}>
+              <div style={{ width: "36px", height: "3px", borderRadius: "2px", background: "rgba(228,228,223,0.18)" }} />
+            </div>
+
+            {/* Image */}
+            <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%", background: "#111", marginTop: "8px" }}>
+              <img
+                src={selectedWork.imageSrc}
+                alt={selectedWork.imageAlt}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+              />
+              {/* Overlay */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #1E1E1E 0%, transparent 50%)" }} />
+            </div>
+
+            {/* Content */}
+            <div style={{ padding: "20px 24px 40px" }}>
+              {/* Category + year */}
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+                <span style={{ fontSize: "8px", letterSpacing: "0.2em", color: "rgba(228,228,223,0.4)", textTransform: "uppercase" }}>
+                  {selectedWork.category}
+                </span>
+                <span style={{ width: "1px", height: "10px", background: "rgba(228,228,223,0.15)" }} />
+                <span style={{ fontSize: "8px", letterSpacing: "0.2em", color: "rgba(228,228,223,0.25)", textTransform: "uppercase", fontVariantNumeric: "tabular-nums" }}>
+                  {selectedWork.year}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3 style={{ fontSize: "clamp(16px,4.5vw,20px)", fontWeight: 500, color: "#D6D6D6", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.02em" }}>
+                {selectedWork.title}
+              </h3>
+
+              {/* Divider */}
+              <div style={{ height: "1px", background: "rgba(228,228,223,0.07)", marginBottom: "16px" }} />
+
+              {/* Description */}
+              <p style={{ fontSize: "13px", lineHeight: 1.7, color: "rgba(228,228,223,0.55)", margin: "0 0 24px", fontWeight: 300 }}>
+                {selectedWork.description}
+              </p>
+
+              {/* Tech stack */}
+              <div style={{ marginBottom: "28px" }}>
+                <span style={{ fontSize: "8px", letterSpacing: "0.2em", color: "rgba(228,228,223,0.3)", textTransform: "uppercase", display: "block", marginBottom: "10px" }}>
+                  Tech Stack
+                </span>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                  {selectedWork.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      style={{
+                        fontSize: "10px",
+                        letterSpacing: "0.08em",
+                        color: "rgba(228,228,223,0.6)",
+                        border: "1px solid rgba(228,228,223,0.12)",
+                        padding: "4px 10px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* GitHub link */}
+              <a
+                href={selectedWork.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "14px 16px",
+                  border: "1px solid rgba(228,228,223,0.12)",
+                  color: "#D6D6D6",
+                  textDecoration: "none",
+                  fontSize: "11px",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                }}
+              >
+                <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{ opacity: 0.7 }}>
+                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                  </svg>
+                  View on GitHub
+                </span>
+                <span style={{ opacity: 0.4 }}>↗</span>
+              </a>
+
+              {/* Close */}
+              <button
+                onClick={closePanel}
+                style={{
+                  marginTop: "12px",
+                  width: "100%",
+                  background: "none",
+                  border: "none",
+                  padding: "12px",
+                  fontSize: "9px",
+                  letterSpacing: "0.2em",
+                  color: "rgba(228,228,223,0.25)",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

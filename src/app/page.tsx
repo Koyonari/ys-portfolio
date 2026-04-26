@@ -8,19 +8,13 @@ import Footer from "../components/main/footer";
 
 export default function Home() {
   return (
-    // No max-w here — each section manages its own width
     <div className="bg-[#2F2F2F] flex flex-col w-full">
-      {/* Full bleed */}
       <Hero />
       <AboutScroll />
-
-      {/* Sections with inner max-w-7xl constraints */}
       <AboutPara />
       <Toolkit />
       <Work />
       <Certs />
-
-      {/* Full bleed footer */}
       <Footer />
     </div>
   );

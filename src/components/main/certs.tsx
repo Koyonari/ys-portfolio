@@ -66,10 +66,10 @@ export default function Certs() {
   const visibleCerts = showAll ? allFiltered : allFiltered.slice(0, PAGE_SIZE);
 
   return (
-    <div className="relative w-full bg-[#2E2E2E] text-[#D6D6D6] min-h-[700px]">
+    <div className="relative w-full text-[#D6D6D6] min-h-[700px]">
       <div className="relative mx-auto max-w-7xl px-[clamp(1.25rem,4vw,4rem)] py-16 pt-10">
 
-        {/* Mobile/Tablet: stacked layout */}
+        {/* Mobile layout */}
         {isMobile || isTablet ? (
           <div className="flex flex-col gap-8">
             {/* Header */}
@@ -141,7 +141,7 @@ export default function Certs() {
             )}
           </div>
         ) : (
-          /* Desktop: sidebar + grid */
+          /* Desktop sidebar + grid */
           <div className="flex gap-16 lg:gap-24">
             <aside className="w-44 shrink-0 pt-5">
               <nav className="flex flex-col gap-0.5">
@@ -281,7 +281,7 @@ function CertModal({ cert, allVisible, onClose, onSelect }: {
       <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none" style={{ padding: "1rem" }}>
         <div
           className="pointer-events-auto w-full transition-all duration-300"
-          style={{ maxWidth: "min(48rem, 95vw)", background: "#2E2E2E", border: "1px solid rgba(255,255,255,0.1)", opacity: entering ? 0 : 1, transform: entering ? "translateY(12px)" : "translateY(0)" }}
+          style={{ maxWidth: "min(48rem, 95vw)", border: "1px solid rgba(255,255,255,0.1)", opacity: entering ? 0 : 1, transform: entering ? "translateY(12px)" : "translateY(0)" }}
         >
           <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.07]">
             <div className="flex items-center gap-3">
