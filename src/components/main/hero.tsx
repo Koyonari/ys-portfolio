@@ -219,15 +219,15 @@ export default function Hero() {
             style={{ gap: "0.75rem", marginBottom: "1.25rem" }}
           >
             <span style={{ fontSize: "8px", letterSpacing: "0.20em", color: "var(--muted)", textTransform: "uppercase" }} className="px-2.5">
-              Selected Work
+              Quick Access
             </span>
             <div style={{ flex: 1, height: "1px", background: "var(--rule-bright)", maxWidth: "3rem" }} />
           </div>
 
           {[
-            { n: "4", index: "01", title: "Portfolio Website", year: "2025", tags: "Next.js · UIUX" },
-            { n: "5", index: "02", title: "Project Alpha", year: "2024", tags: "React · TypeScript" },
-            { n: "6", index: "03", title: "Design System", year: "2024", tags: "Figma · Storybook" },
+            { n: "4", index: "01", title: "Blog", tags: "My thoughts" },
+            { n: "5", index: "02", title: "Certifications & Awards", tags: "my acollades & credentials" },
+            { n: "6", index: "03", title: "Contact Me", tags: "Contact me on LinkedIn / Email / Whatsapp" },
           ].map((work, i) => (
             <div
               key={work.index}
@@ -255,9 +255,6 @@ export default function Hero() {
                   {work.tags}
                 </span>
               </div>
-              <span style={{ fontSize: "9px", letterSpacing: "0.10em", color: "var(--muted)", textTransform: "uppercase", fontVariantNumeric: "tabular-nums" }}>
-                {work.year}
-              </span>
             </div>
           ))}
         </div>
