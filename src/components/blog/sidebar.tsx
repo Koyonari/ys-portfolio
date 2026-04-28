@@ -1,56 +1,52 @@
 "use client";
 
-import { type Category, type BlogPost, CATEGORIES, CAT_COLOR } from "@/types/blog";
+import {
+  type Category,
+  type BlogPost,
+  CATEGORIES,
+  CAT_COLOR,
+} from "@/types/blog";
 import { POSTS } from "@/data/posts";
-import PatternCanvas from "@/components/blog/patterncanvas";
+import Pattern from "@/components/blog/patterncanvas";
 
-interface BlogSidebarProps {
+interface SidebarProps {
   activeFilter: Category;
   onFilterChange: (cat: Category) => void;
   hoveredPost: BlogPost | null;
   isMobile: boolean;
 }
 
-export default function BlogSidebar({
+export default function Sidebar({
   activeFilter,
   onFilterChange,
   hoveredPost,
   isMobile,
-}: BlogSidebarProps) {
+}: SidebarProps) {
   const patternPost = hoveredPost ?? null;
-  const patternColor = patternPost ? CAT_COLOR[patternPost.category] : "#7E7E78";
+  const patternColor = patternPost
+    ? CAT_COLOR[patternPost.category]
+    : "#7E7E78";
 
   return (
     <aside
-      style={{
-        position: isMobile ? "static" : "sticky",
-        top: "72px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "0",
-      }}
+      className={`flex flex-col gap-0 ${isMobile ? "static" : "sticky"}`}
+      style={{ top: isMobile ? "auto" : "72px" }}
     >
       {/* Filter nav */}
-      <nav style={{ marginBottom: "2rem" }}>
-        <p
-          style={{
-            fontSize: "8px",
-            letterSpacing: "0.22em",
-            color: "var(--muted)",
-            textTransform: "uppercase",
-            marginBottom: "12px",
-          }}
-        >
+      <nav className="mb-8">
+        <p className="mb-3 text-[8px] uppercase tracking-[0.22em] text-[var(--muted)]">
           Filter
         </p>
 
         {isMobile ? (
           // Horizontal chips on mobile
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+          <div className="flex flex-wrap gap-1.5">
             {CATEGORIES.map((cat) => {
               const active = activeFilter === cat;
               const color =
-                cat === "All" ? "#D6D6D6" : CAT_COLOR[cat as Exclude<Category, "All">];
+                cat === "All"
+                  ? "#D6D6D6"
+                  : CAT_COLOR[cat as Exclude<Category, "All">];
               const count =
                 cat === "All"
                   ? POSTS.length
@@ -80,11 +76,13 @@ export default function BlogSidebar({
           </div>
         ) : (
           // Vertical sidebar on desktop
-          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <div className="flex flex-col gap-0.5">
             {CATEGORIES.map((cat) => {
               const active = activeFilter === cat;
               const color =
-                cat === "All" ? "#D6D6D6" : CAT_COLOR[cat as Exclude<Category, "All">];
+                cat === "All"
+                  ? "#D6D6D6"
+                  : CAT_COLOR[cat as Exclude<Category, "All">];
               const count =
                 cat === "All"
                   ? POSTS.length
@@ -93,46 +91,26 @@ export default function BlogSidebar({
                 <button
                   key={cat}
                   onClick={() => onFilterChange(cat)}
-                  className="filter-btn"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    padding: "7px 0",
-                    background: "none",
-                    border: "none",
-                    textAlign: "left",
-                    cursor: "pointer",
-                  }}
+                  className="filter-btn flex items-center gap-2.5 bg-none border-none text-left px-0 py-1.5 cursor-pointer"
                 >
                   <span
+                    className="block h-px shrink-0 transition-all duration-250"
                     style={{
-                      display: "block",
-                      height: "1px",
                       width: active ? "20px" : "10px",
                       background: active ? color : "rgba(228,228,223,0.18)",
-                      transition: "width 0.25s ease, background 0.25s ease",
-                      flexShrink: 0,
                     }}
                   />
                   <span
+                    className="flex-1 text-[10px] uppercase tracking-[0.14em] transition-colors duration-250"
                     style={{
-                      fontSize: "10px",
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
                       color: active ? color : "rgba(228,228,223,0.38)",
-                      transition: "color 0.25s ease",
-                      flex: 1,
                     }}
                   >
                     {cat}
                   </span>
                   <span
-                    style={{
-                      fontSize: "9px",
-                      color: "rgba(228,228,223,0.18)",
-                      fontVariantNumeric: "tabular-nums",
-                    }}
+                    className="text-[9px] text-[rgba(228,228,223,0.18)]"
+                    style={{ fontVariantNumeric: "tabular-nums" }}
                   >
                     {count}
                   </span>
@@ -143,34 +121,23 @@ export default function BlogSidebar({
         )}
       </nav>
 
-      {/* Pattern canvas — desktop only */}
+      {/* Pattern canvas */}
       {!isMobile && (
         <div
+          className="relative w-full h-[180px] border overflow-hidden transition-colors duration-400"
           style={{
-            width: "100%",
-            height: "180px",
             border: `1px solid ${patternPost ? `${patternColor}30` : "rgba(228,228,223,0.07)"}`,
-            overflow: "hidden",
-            position: "relative",
-            transition: "border-color 0.4s ease",
           }}
         >
           {/* Pattern type label */}
-          <div style={{ position: "absolute", top: "8px", left: "10px", zIndex: 2 }}>
-            <span
-              style={{
-                fontSize: "7px",
-                letterSpacing: "0.2em",
-                color: "rgba(228,228,223,0.2)",
-                textTransform: "uppercase",
-              }}
-            >
+          <div className="absolute top-2 left-2.5 z-10">
+            <span className="text-[7px] uppercase tracking-[0.2em] text-[rgba(228,228,223,0.2)]">
               {patternPost?.patternType ?? "—"}
             </span>
           </div>
 
           {patternPost && (
-            <PatternCanvas
+            <Pattern
               key={`${patternPost.patternType}-${patternColor}`}
               type={patternPost.patternType}
               color={patternColor}
@@ -179,25 +146,10 @@ export default function BlogSidebar({
         </div>
       )}
 
-      {/* Hovered post excerpt — desktop only */}
+      {/* Hovered post */}
       {!isMobile && hoveredPost && (
-        <div
-          style={{
-            marginTop: "16px",
-            padding: "14px",
-            border: "1px solid rgba(228,228,223,0.07)",
-            animation: "fadeUp 0.3s ease forwards",
-          }}
-        >
-          <p
-            style={{
-              fontSize: "10px",
-              lineHeight: 1.65,
-              color: "rgba(228,228,223,0.4)",
-              margin: 0,
-              fontWeight: 300,
-            }}
-          >
+        <div className="mt-4 p-3.5 border border-[rgba(228,228,223,0.07)] animate-fadeUp">
+          <p className="m-0 text-[10px] font-light leading-[1.65] text-[rgba(228,228,223,0.4)]">
             {hoveredPost.excerpt}
           </p>
         </div>

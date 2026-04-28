@@ -1,64 +1,32 @@
 "use client";
-
-interface BlogHeaderProps {
+interface HeaderProps {
   onBack?: () => void;
 }
-
-export default function Header({ onBack }: BlogHeaderProps) {
+export default function Header({ onBack }: HeaderProps) {
   return (
-    <div
-      className="mx-auto max-w-7xl"
-      style={{
-        padding:
-          "clamp(2.5rem,6vw,5rem) clamp(1.25rem,4vw,4rem) clamp(2rem,4vw,3rem)",
-      }}
-    >
+    <div className="mx-auto max-w-7xl px-[clamp(1.25rem,4vw,4rem)] py-[clamp(2.5rem,6vw,5rem)] pb-[clamp(2rem,4vw,3rem)]">
       {/* Back button */}
-      <button className="back-btn mb-8" onClick={onBack}>
+      <button className="back-btn mb-8" onClick={() => { window.location.href = "/"; }}>
         <span className="back-btn-arrow">←</span>
         <span>Portfolio</span>
       </button>
-
       {/* Title block */}
-      <div style={{ maxWidth: "640px" }}>
+      <div className="max-w-[640px]">
         <p
-          className="fade-up"
-          style={{
-            animationDelay: "0.05s",
-            fontSize: "9px",
-            letterSpacing: "0.22em",
-            color: "var(--muted)",
-            textTransform: "uppercase",
-            marginBottom: "16px",
-          }}
+          className="fade-up mb-4 text-xs uppercase tracking-[0.22em] text-[var(--muted)]"
+          style={{ animationDelay: "0.05s" }}
         >
           Writing / Notes / Ideas
         </p>
         <h1
-          className="fade-up"
-          style={{
-            animationDelay: "0.12s",
-            fontSize: "clamp(36px, 7vw, 80px)",
-            fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            color: "var(--fg)",
-            margin: 0,
-          }}
+          className="fade-up m-0 text-[clamp(36px,7vw,80px)] font-black leading-[1.05] tracking-[-0.03em] text-[var(--fg)]"
+          style={{ animationDelay: "0.12s" }}
         >
           Blog
         </h1>
         <p
-          className="fade-up"
-          style={{
-            animationDelay: "0.22s",
-            fontSize: "clamp(13px, 1.2vw, 15px)",
-            lineHeight: 1.7,
-            color: "rgba(228,228,223,0.45)",
-            marginTop: "16px",
-            fontWeight: 300,
-            maxWidth: "480px",
-          }}
+          className="fade-up mt-4 max-w-[480px] text-[clamp(13px,1.2vw,15px)] font-light leading-[1.7] text-[rgba(228,228,223,0.45)]"
+          style={{ animationDelay: "0.22s" }}
         >
           Thoughts on software, security, and the process of building things.
           Irregular, honest, unedited.

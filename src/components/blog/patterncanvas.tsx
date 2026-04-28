@@ -3,12 +3,12 @@
 import { useEffect, useRef } from "react";
 import type { BlogPost } from "@/types/blog";
 
-interface PatternCanvasProps {
+interface PatternProps {
   type: BlogPost["patternType"];
   color: string;
 }
 
-export default function PatternCanvas({ type, color }: PatternCanvasProps) {
+export default function Pattern({ type, color }: PatternProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef<number>(0);
   const tRef = useRef(0);
@@ -44,7 +44,13 @@ export default function PatternCanvas({ type, color }: PatternCanvasProps) {
             const alpha = 0.08 + 0.1 * Math.sin(dist / 25 - t * 0.04);
             ctx.strokeStyle = `rgba(${r},${g},${b},${Math.max(0, alpha)})`;
             ctx.beginPath();
-            ctx.arc(x + Math.sin(t * 0.03 + y / 40) * 2, y, 1.2, 0, Math.PI * 2);
+            ctx.arc(
+              x + Math.sin(t * 0.03 + y / 40) * 2,
+              y,
+              1.2,
+              0,
+              Math.PI * 2,
+            );
             ctx.stroke();
           }
         }
@@ -66,7 +72,8 @@ export default function PatternCanvas({ type, color }: PatternCanvasProps) {
         const size = 5;
         for (let x = 0; x < W; x += size) {
           for (let y = 0; y < H; y += size) {
-            const n = Math.sin(x * 0.05 + t * 0.02) * Math.cos(y * 0.05 + t * 0.015);
+            const n =
+              Math.sin(x * 0.05 + t * 0.02) * Math.cos(y * 0.05 + t * 0.015);
             const alpha = Math.max(0, n * 0.12);
             ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
             ctx.fillRect(x, y, size, size);
