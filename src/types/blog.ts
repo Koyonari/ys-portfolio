@@ -9,6 +9,7 @@ export interface BlogPost {
   category: Exclude<Category, "All">;
   readTime: string;
   excerpt: string;
+  content?: string;
   patternType: "grid" | "wave" | "noise" | "circuit" | "dots" | "lines" | "helix" | "morse";
 }
 

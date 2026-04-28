@@ -8,6 +8,7 @@ interface ListProps {
   isMobile: boolean;
   onHover: (post: BlogPost | null) => void;
   selectedPost: BlogPost | null;
+  onOpen: (post: BlogPost) => void;   // ← NEW
 }
 
 export default function List({
@@ -16,6 +17,7 @@ export default function List({
   isMobile,
   onHover,
   selectedPost,
+  onOpen,
 }: ListProps) {
   return (
     <main>
@@ -47,6 +49,7 @@ export default function List({
               }}
               onMouseEnter={() => onHover(post)}
               onMouseLeave={() => onHover(null)}
+              onClick={() => onOpen(post)}          // ← NEW
             >
               {/* Left accent bar */}
               <div
@@ -74,7 +77,6 @@ export default function List({
 
               {/* Title + meta */}
               <div className="flex flex-col gap-1.5 min-w-0">
-                {/* Date row for mobile */}
                 {isMobile && (
                   <div className="flex items-center gap-2 mb-0.5">
                     <time
@@ -90,7 +92,6 @@ export default function List({
                   </div>
                 )}
 
-                {/* Category pill */}
                 <div className="flex items-center gap-2.5 flex-wrap">
                   <span
                     className="inline-block text-[8px] uppercase tracking-[0.18em] flex-shrink-0"
@@ -105,7 +106,6 @@ export default function List({
                   </span>
                 </div>
 
-                {/* Title */}
                 <h2
                   className={`${
                     isMobile

@@ -8,11 +8,13 @@ import { POSTS } from "@/data/posts";
 import Header from "@/components/blog/header";
 import Sidebar from "@/components/blog/sidebar";
 import List from "@/components/blog/list";
+import PostDetail from "@/components/blog/postdetail";
 import Footer from "@/components/main/footer";
 
 export default function BlogPage() {
   const [activeFilter, setActiveFilter] = useState<Category>("All");
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [openPost, setOpenPost] = useState<BlogPost | null>(null);
   const [vw, setVw] = useState(1440);
 
   useEffect(() => {
@@ -29,22 +31,34 @@ export default function BlogPage() {
       ? POSTS
       : POSTS.filter((p) => p.category === activeFilter);
 
-  // Auto-select the first post on mount
   useEffect(() => {
     if (filtered.length > 0) setSelectedPost(filtered[0]);
   }, []);
 
-  // When the filter changes, select the first post in the new filtered list
   useEffect(() => {
     if (filtered.length > 0) setSelectedPost(filtered[0]);
     else setSelectedPost(null);
   }, [activeFilter]);
 
-  // Ignore null (mouse-leave) so the last hovered post stays selected
   const handleHover = (post: BlogPost | null) => {
     if (post !== null) setSelectedPost(post);
   };
 
+  // ── If a post is open, show the detail view ──────────────────────────────
+  if (openPost) {
+    return (
+      <PostDetail
+        post={openPost}
+        onBack={() => {
+          setOpenPost(null);
+          // Restore scroll position to top of list
+          window.scrollTo({ top: 0, behavior: "instant" });
+        }}
+      />
+    );
+  }
+
+  // ── Otherwise show the list ───────────────────────────────────────────────
   return (
     <>
       <style>{`
@@ -58,7 +72,6 @@ export default function BlogPage() {
         * { box-sizing: border-box; }
         body { margin: 0; background: var(--bg); }
 
-        /* Blog row */
         .blog-row {
           position: relative;
           border-bottom: 1px solid var(--rule);
@@ -86,13 +99,11 @@ export default function BlogPage() {
           opacity: 1;
         }
 
-        /* Filter button */
         .filter-btn {
           transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
           cursor: pointer;
         }
 
-        /* Back button */
         .back-btn {
           display: inline-flex;
           align-items: center;
@@ -115,7 +126,6 @@ export default function BlogPage() {
         }
         .back-btn:hover .back-btn-arrow { transform: translateX(-4px); }
 
-        /* Fade-up entrance */
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(12px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -130,10 +140,8 @@ export default function BlogPage() {
           fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
         }}
       >
-        {/* Page title */}
         <Header />
 
-        {/* Main layout */}
         <div
           className="mx-auto max-w-7xl"
           style={{
@@ -144,7 +152,6 @@ export default function BlogPage() {
             alignItems: "start",
           }}
         >
-          {/* Filters + animated pattern */}
           <Sidebar
             activeFilter={activeFilter}
             onFilterChange={setActiveFilter}
@@ -152,17 +159,16 @@ export default function BlogPage() {
             isMobile={isMobile}
           />
 
-          {/* Post list */}
           <List
             filtered={filtered}
             totalCount={POSTS.length}
             isMobile={isMobile}
             onHover={handleHover}
             selectedPost={selectedPost}
+            onOpen={setOpenPost}
           />
         </div>
 
-        {/* Footer */}
         <Footer />
       </div>
     </>
