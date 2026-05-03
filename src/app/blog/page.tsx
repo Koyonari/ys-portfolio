@@ -44,7 +44,6 @@ export default function BlogPage() {
     if (post !== null) setSelectedPost(post);
   };
 
-  // ── If a post is open, show the detail view ──────────────────────────────
   if (openPost) {
     return (
       <PostDetail
@@ -58,7 +57,6 @@ export default function BlogPage() {
     );
   }
 
-  // ── Otherwise show the list ───────────────────────────────────────────────
   return (
     <>
       <style>{`

@@ -24,17 +24,17 @@ const CAT_COLOR: Record<CatKey, string> = {
 };
 
 const certs: Certificate[] = [
-  { id: 1, image: "/certs/ycep.jpg", title: "Youth Cyber Exploration Programme (YCEP)", issuer: "CSA", year: 2021, category: "Programme" },
-  { id: 2, image: "/certs/cctfycep.jpg", title: "Central CTF YCEP", issuer: "CSA, Cybint", year: 2021, category: "Competition" },
-  { id: 3, image: "/certs/aycep.jpg", title: "Advanced Youth Cyber Exploration Programme", issuer: "CSA, Cloudsine", year: 2021, category: "Programme" },
-  { id: 4, image: "/certs/brainhack2021.jpg", title: "BrainHack 2021", issuer: "DSTA", year: 2021, category: "Competition" },
-  { id: 5, image: "/certs/brainhack2024.jpg", title: "BrainHack 2024", issuer: "DSTA", year: 2024, category: "Competition" },
-  { id: 6, image: "/certs/buildingblocs.jpg", title: "BuildingBloCS 2021", issuer: "SIMCC, CTE-STEM", year: 2021, category: "Programme" },
-  { id: 7, image: "/certs/hackatac.jpg", title: "Hack@AC 2021", issuer: "CSA", year: 2021, category: "Competition" },
-  { id: 8, image: "/certs/thc.jpg", title: "Threat Hunting Challenge", issuer: "CSA, Elastic", year: 2021, category: "Competition" },
-  { id: 9, image: "/certs/tisc.jpg", title: "The InfoSecurity Challenge", issuer: "CSIT", year: 2023, category: "Competition" },
-  { id: 10, image: "/certs/scrum.jpg", title: "Professional Scrum Master I", issuer: "Scrum.org", year: 2024, category: "Certification" },
-  { id: 11, image: "/certs/npkongsi.jpg", title: "Ngee Ann Kongsi Award", issuer: "Ngee Ann Kongsi", year: 2024, category: "Award" },
+  { id: 1, image: "/certs/NYP YCEP 2021 Certificate.png", title: "Youth Cyber Exploration Programme (YCEP)", issuer: "CSA", year: 2021, category: "Programme" },
+  { id: 2, image: "/certs/Central CTF Youth Cyber Exploration Programme 2021 Certificate.png", title: "Central CTF YCEP", issuer: "CSA, Cybint", year: 2021, category: "Competition" },
+  { id: 3, image: "/certs/AYCEP 2021.jpg", title: "Advanced Youth Cyber Exploration Programme", issuer: "CSA, Cloudsine", year: 2021, category: "Programme" },
+  { id: 4, image: "/certs/Brainhack 2021 Certificate.jpg", title: "BrainHack 2021", issuer: "DSTA", year: 2021, category: "Competition" },
+  { id: 5, image: "/certs/BrainHack 2024 Certificate.jpg", title: "BrainHack 2024", issuer: "DSTA", year: 2024, category: "Competition" },
+  { id: 6, image: "/certs/BuildingBloCS 2021 Certificate.jpg", title: "BuildingBloCS 2021", issuer: "SIMCC, CTE-STEM", year: 2021, category: "Programme" },
+  { id: 7, image: "/certs/Hack@AC 2021 Certificate.jpg", title: "Hack@AC 2021", issuer: "CSA", year: 2021, category: "Competition" },
+  { id: 8, image: "/certs/THC 2021 Certificate.png", title: "Threat Hunting Challenge", issuer: "CSA, Elastic", year: 2021, category: "Competition" },
+  { id: 9, image: "/certs/TISC 2023 Organising Team - TISC 2023 Badge of Participation - 2023-10-13.png", title: "The InfoSecurity Challenge", issuer: "CSIT", year: 2023, category: "Competition" },
+  { id: 10, image: "/certs/Professional Scrum Master I.png", title: "Professional Scrum Master I", issuer: "Scrum.org", year: 2024, category: "Certification" },
+  { id: 11, image: "/certs/Ngee Ann Kongsi Tertiary Study Award.png", title: "Ngee Ann Kongsi Award", issuer: "Ngee Ann Kongsi", year: 2024, category: "Award" },
 ];
 
 const PAGE_SIZE = 6;
@@ -280,7 +280,7 @@ function CertModal({ cert, allVisible, onClose, onSelect }: {
       <div onClick={onClose} className="fixed inset-0 z-40 transition-opacity duration-300" style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(6px)", opacity: entering ? 0 : 0.35 }} />
       <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none" style={{ padding: "1rem" }}>
         <div
-          className="pointer-events-auto w-full transition-all duration-300"
+          className="pointer-events-auto w-full transition-all duration-300 bg-[#2F2F2F]"
           style={{ maxWidth: "min(48rem, 95vw)", border: "1px solid rgba(255,255,255,0.1)", opacity: entering ? 0 : 1, transform: entering ? "translateY(12px)" : "translateY(0)" }}
         >
           <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.07]">

@@ -276,7 +276,7 @@ export default function Hero() {
               className="hs-role m-0 font-normal"
               style={{ fontSize: "clamp(8px, 1.1vw, 13px)", letterSpacing: "-0.02em", lineHeight: "1.6em", color: "var(--muted-bright)" }}
             >
-              SOFTWARE ENGINEER / UIUX / STUDENT
+              SOFTWARE ENGINEER / UIUX / STUDENT / INTEREST IN QUANT
             </p>
             <h1
               data-a="8"
@@ -297,7 +297,7 @@ export default function Hero() {
                 className="m-0 text-right"
                 style={{ fontSize: "10px", letterSpacing: "-0.02em", lineHeight: "1.65em", color: "var(--muted-bright)", maxWidth: "150px" }}
               >
-                Hey, I&apos;m Yong Shyan, a 3rd Year Software Engineering student
+                Hey, I&apos;m Yong Shyan, a Software Engineering Diploma Graduate
               </p>
             </div>
             <div aria-hidden="true" style={{ height: "calc(clamp(44px,9vw,92px) * 1.3)" }} />

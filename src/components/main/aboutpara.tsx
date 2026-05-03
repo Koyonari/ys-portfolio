@@ -160,10 +160,10 @@ export default function AboutPara() {
               transition: "opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s",
             }}
           >
-            An emblem of curiosity and grit, I&apos;m a final year Software Engineering
-            student at Ngee Ann Polytechnic who loves tinkering with software that
+            An emblem of curiosity and grit, I&apos;m a Software Engineering
+            Graduate at Ngee Ann Polytechnic who loves tinkering with software (or hardware) that
             sparks my interest. Whether it&apos;s experimenting with new distros, building
-            fun projects, or just learning something fresh, I enjoy the process as
+            fun projects, or just learning something challenging, I enjoy the process as
             much as the result.
           </p>
 

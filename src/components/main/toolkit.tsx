@@ -5,8 +5,9 @@ const stackLang: string[] = [
   "Python",
   "C#",
   "C++",
+  "Nvim",
+  "Arch Linux",
   "Node.js",
-  "React.js",
   "Next.js",
   "TailwindCSS",
 ];
@@ -53,7 +54,7 @@ export default function Toolkit() {
               }}
             >
               My digital toolkit includes a diverse range of programming languages,
-              markup languages and frameworks. I am proficient in and have
+              markup languages, frameworks and tools. I am proficient in and have
               experience with the following technologies.
             </p>
           </div>
