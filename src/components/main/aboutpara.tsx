@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useEffect, useLayoutEffect, useState } from "react";
+import Link from "next/link";
 
 function ScrambleButton() {
   const [displayText, setDisplayText] = useState("READ MY BLOG");
@@ -176,7 +177,9 @@ export default function AboutPara() {
               transition: "opacity 0.6s ease 0.25s, transform 0.6s ease 0.25s",
             }}
           >
-            <ScrambleButton />
+            <Link href="/blog" style={{ textDecoration: "none" }}>
+              <ScrambleButton />
+            </Link>
           </div>
         </div>
       </div>

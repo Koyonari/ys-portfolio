@@ -14,8 +14,8 @@ export default function Home() {
       <AboutPara />
       <Toolkit />
       <Work />
-      <Certs />
-      <Footer />
+      <Certs id = "certs" />
+      <Footer id = "footer" />
     </div>
   );
 }

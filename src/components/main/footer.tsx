@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export default function Footer() {
+export default function Footer({ id }:any) {
   const sectionRef = useRef<HTMLElement>(null);
   const [entered, setEntered] = useState(false);
   const [singaporeTime, setSingaporeTime] = useState("");
@@ -61,7 +61,7 @@ export default function Footer() {
         .link-hover:hover::after { width: 100%; }
       `}</style>
 
-      <section ref={sectionRef} className="w-full bg-[#111] text-[#f0ede8] font-sans">
+      <section id = {id} ref={sectionRef} className="w-full bg-[#111] text-[#f0ede8] font-sans">
         <div className="mx-auto max-w-7xl px-[clamp(1.25rem,4vw,4rem)] py-12 md:py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
 
@@ -98,7 +98,7 @@ export default function Footer() {
             {/* Background */}
             <div className={`text-xs col-span-2 md:col-span-1 ${fade("delay-[240ms]")}`}>
               <p className="lg:text-xs text-sm font-bold uppercase tracking-widest mb-4">Background</p>
-              <p className="lg:text-sm text-[#f0ede8]/55 leading-relaxed mb-3">Information Technology Graduate, specialising in Software Engineering at Ngee Ann Polytechnic, with an interest in Linux Distributions and Quantitative Finance.</p>
+              <p className="lg:text-sm text-[#f0ede8]/55 leading-relaxed mb-3">Information Technology Graduate, specialising in Software Engineering from Ngee Ann Polytechnic, with an interest in Linux Distributions and Quantitative Finance.</p>
 
               <div className={`flex gap-4 ${fade("delay-[320ms]")}`}>
                 <a href="https://www.linkedin.com/in/yong-shyan-an/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-5 h-5 lg:w-7 lg:h-7 flex items-center justify-center text-[#f0ede8]/55 hover:text-[#f0ede8] transition-colors duration-200">

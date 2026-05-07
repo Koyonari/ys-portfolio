@@ -1,4 +1,4 @@
-export type Category = "All" | "Tech" | "Life" | "Projects" | "Cybersecurity" | "Thoughts";
+export type Category = "All" | "Tech" | "Projects" | "Thoughts" | "Travel";
 
 export interface BlogPost {
   id: number;
@@ -13,12 +13,11 @@ export interface BlogPost {
   patternType: "grid" | "wave" | "noise" | "circuit" | "dots" | "lines" | "helix" | "morse";
 }
 
-export const CATEGORIES: Category[] = ["All", "Tech", "Life", "Projects", "Cybersecurity", "Thoughts"];
+export const CATEGORIES: Category[] = ["All", "Tech", "Projects", "Thoughts", "Travel"];
 
 export const CAT_COLOR: Record<Exclude<Category, "All">, string> = {
   Tech: "#7EAABE",
-  Life: "#BE7E7E",
   Projects: "#7EBE8F",
-  Cybersecurity: "#C8AA6E",
   Thoughts: "#A27EBE",
+  Travel: "#BE7E7E",
 };

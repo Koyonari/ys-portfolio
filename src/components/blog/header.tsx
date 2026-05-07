@@ -28,8 +28,7 @@ export default function Header({ onBack }: HeaderProps) {
           className="fade-up mt-4 max-w-[480px] text-[clamp(13px,1.2vw,15px)] font-light leading-[1.7] text-[rgba(228,228,223,0.45)]"
           style={{ animationDelay: "0.22s" }}
         >
-          Thoughts on software, security, and the process of building things.
-          Irregular, honest, unedited.
+          Thoughts on software, random thoughts and idealogies.
         </p>
       </div>
     </div>

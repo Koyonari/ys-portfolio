@@ -39,7 +39,11 @@ const certs: Certificate[] = [
 
 const PAGE_SIZE = 6;
 
-export default function Certs() {
+interface CertsProps {
+  id?: string;
+}
+
+export default function Certs({ id }: CertsProps) {
   const [filterCat, setFilterCat] = useState<CatKey | "All">("All");
   const [selected, setSelected] = useState<Certificate | null>(null);
   const [showAll, setShowAll] = useState(false);
@@ -66,7 +70,7 @@ export default function Certs() {
   const visibleCerts = showAll ? allFiltered : allFiltered.slice(0, PAGE_SIZE);
 
   return (
-    <div className="relative w-full text-[#D6D6D6] min-h-[700px]">
+    <div id={id} className="relative w-full text-[#D6D6D6] min-h-[700px]">
       <div className="relative mx-auto max-w-7xl px-[clamp(1.25rem,4vw,4rem)] py-16 pt-10">
 
         {/* Mobile layout */}

@@ -15,6 +15,16 @@ export default function Hero() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <>
       <style>{`
@@ -51,6 +61,7 @@ export default function Hero() {
           transition: opacity .22s ease;
           cursor: pointer;
           opacity: 0.5;
+          text-decoration: none;
         }
         .hs-work:hover { opacity: 1; }
         .hs-work-arrow {
@@ -225,14 +236,16 @@ export default function Hero() {
           </div>
 
           {[
-            { n: "4", index: "01", title: "Blog", tags: "My thoughts" },
-            { n: "5", index: "02", title: "Certifications & Awards", tags: "my acollades & credentials" },
-            { n: "6", index: "03", title: "Contact Me", tags: "Contact me on LinkedIn / Email / Whatsapp" },
+            { n: "4", index: "01", title: "Blog", tags: "My thoughts", href: "/blog" },
+            { n: "5", index: "02", title: "Certifications & Awards", tags: "my accolades & credentials", href: "#certs" },
+            { n: "6", index: "03", title: "Contact Me", tags: "Contact me on LinkedIn / Email / Whatsapp", href: "#footer" },
           ].map((work, i) => (
-            <div
+            <a
               key={work.index}
+              href={work.href}
               data-a={work.n}
               className="hs-work"
+              onClick={(e) => handleSmoothScroll(e, work.href)}
               style={{
                 display: "grid",
                 gridTemplateColumns: "1.8rem 1fr auto",
@@ -255,7 +268,7 @@ export default function Hero() {
                   {work.tags}
                 </span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
@@ -297,7 +310,7 @@ export default function Hero() {
                 className="m-0 text-right"
                 style={{ fontSize: "10px", letterSpacing: "-0.02em", lineHeight: "1.65em", color: "var(--muted-bright)", maxWidth: "150px" }}
               >
-                Hey, I&apos;m Yong Shyan, a Software Engineering Diploma Graduate
+                Hey, I&apos;m an Information Technology Diploma Graduate
               </p>
             </div>
             <div aria-hidden="true" style={{ height: "calc(clamp(44px,9vw,92px) * 1.3)" }} />
