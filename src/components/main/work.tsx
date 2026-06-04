@@ -18,46 +18,46 @@ const works: WorkItem[] = [
   {
     id: 1,
     year: "2025",
-    title: "Una Villa Contemporanea dal Carattere Sartoriale",
-    category: "Residenziale",
-    description: "A contemporary residential project exploring the intersection of bespoke craftsmanship and modern spatial design. Every detail was considered from first principles.",
-    techStack: ["Next.js", "TypeScript", "TailwindCSS", "Framer Motion"],
-    githubUrl: "https://github.com",
-    imageSrc: "/images/work-01.jpg",
-    imageAlt: "Contemporary villa interior with modular grey sofa",
+    title: "Portfolio",
+    category: "Front-End Development",
+    description: "The portfolio site you're looking at right now. Rebuilt from scratch with a focus on scroll-driven interactions, custom cursor effects, and a minimal typographic aesthetic.",
+    techStack: ["Next.js", "TypeScript", "TailwindCSS"],
+    githubUrl: "https://github.com/Koyonari/ys-portfolio",
+    imageSrc: "/works/portfolio.png",
+    imageAlt: "Portfolio",
   },
   {
     id: 2,
-    year: "2024",
-    title: "Appartamento Minimalista nel Cuore della Città",
-    category: "Residenziale",
-    description: "A minimalist city apartment designed around negative space and natural light. Clean lines and a restrained palette create an environment of calm focus.",
-    techStack: ["React", "Node.js", "PostgreSQL", "Prisma"],
-    githubUrl: "https://github.com",
-    imageSrc: "/images/work-02.jpg",
-    imageAlt: "Minimalist apartment interior",
+    year: "2025",
+    title: "Vestra",
+    category: "Full-Stack Development",
+    description: "A fashion discovery and wardrobe management app powered by AI outfit suggestions. Combines a Next.js frontend with a Python backend for intelligent styling recommendations.",
+    techStack: ["Next.js", "TailwindCSS", "Python"],
+    githubUrl: "https://github.com/Koyonari/Vestra_II",
+    imageSrc: "/works/vestra.png",
+    imageAlt: "Vestra",
   },
   {
     id: 3,
     year: "2024",
-    title: "Studio Creativo per un Brand di Moda",
-    category: "Commerciale",
-    description: "A creative studio built for a fashion brand requiring flexibility and visual impact. The space doubles as both a working environment and a content production stage.",
-    techStack: ["Python", "FastAPI", "React", "Docker"],
-    githubUrl: "https://github.com",
-    imageSrc: "/images/work-03.jpg",
-    imageAlt: "Creative studio space for a fashion brand",
+    title: "BannerBites",
+    category: "Full-Stack Development",
+    description: "A dynamic digital signage platform that allows real-time ad placement via a drag-and-drop editor. Built for FSDIT03 with WebSocket-driven live updates and S3-backed media storage.",
+    techStack: ["React.js", "S3", "WebSocket", "Node.js"],
+    githubUrl: "https://github.com/Koyonari/BannerBites_FSDIT03",
+    imageSrc: "/works/bannerbites.png",
+    imageAlt: "BannerBites",
   },
   {
     id: 4,
-    year: "2023",
-    title: "Penthouse con Vista Panoramica sulla Città",
-    category: "Residenziale",
-    description: "A penthouse with panoramic views where architecture dissolves into the cityscape. The design prioritises the horizon as the primary design element throughout.",
-    techStack: ["C#", ".NET", "React", "Azure"],
-    githubUrl: "https://github.com",
-    imageSrc: "/images/work-04.jpg",
-    imageAlt: "Penthouse with panoramic city view",
+    year: "2024",
+    title: "PlanHub",
+    category: "Mobile App Development",
+    description: "An Android productivity app for task and event planning with a clean calendar-driven interface. Developed as a team project for MAD24 using native Java and local SQLite storage.",
+    techStack: ["Java"],
+    githubUrl: "https://github.com/RISHIKEsH12321/MAD24_P01_Team3",
+    imageSrc: "/works/planhub.png",
+    imageAlt: "PlanHub",
   },
 ];
 
@@ -143,7 +143,6 @@ export default function Work() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [cardWidth, isMobile]);
 
-  // Lock body scroll when panel open
   useEffect(() => {
     if (selectedWork) {
       document.body.style.overflow = "hidden";
@@ -233,13 +232,13 @@ export default function Work() {
             <div style={{ marginTop: "2.5rem", display: "flex", alignItems: "center", gap: "14px" }}>
               <div style={{ height: "1px", flex: 1, background: "rgba(228,228,223,0.06)" }} />
               <span style={{ fontSize: "7px", letterSpacing: "0.24em", color: "rgba(228,228,223,0.18)", textTransform: "uppercase", whiteSpace: "nowrap" }}>
-                Selected work 2023–2025
+                Selected work 2024–2025
               </span>
               <div style={{ height: "1px", flex: 1, background: "rgba(228,228,223,0.06)" }} />
             </div>
           </div>
         ) : (
-          /* Desktop view */
+          /* Desktop / Tablet view */
           <div className="sticky top-0 h-screen overflow-hidden">
             <div className="w-full h-full flex">
               <div
@@ -302,7 +301,13 @@ export default function Work() {
                   style={{ willChange: "transform", gap: `${CARD_GAP}px`, transition: "transform 0.45s cubic-bezier(0.4,0,0.2,1)" }}
                 >
                   {works.map((work, i) => (
-                    <WorkCard key={work.id} work={work} isActive={i === activeIndex} cardPx={cardWidth} />
+                    <WorkCard
+                      key={work.id}
+                      work={work}
+                      isActive={i === activeIndex}
+                      cardPx={cardWidth}
+                      onOpen={openPanel}
+                    />
                   ))}
                 </div>
               </div>
@@ -311,10 +316,9 @@ export default function Work() {
         )}
       </div>
 
-      {/* Mobile panel */}
-      {selectedWork && (
+      {/* Mobile bottom sheet */}
+      {isMobile && selectedWork && (
         <>
-          {/* Backdrop */}
           <div
             onClick={closePanel}
             style={{
@@ -325,8 +329,6 @@ export default function Work() {
               transition: "opacity 0.35s ease",
             }}
           />
-
-          {/* Slide up panel */}
           <div
             style={{
               position: "fixed",
@@ -342,12 +344,9 @@ export default function Work() {
               fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
             }}
           >
-            {/* Drag handle */}
             <div style={{ display: "flex", justifyContent: "center", paddingTop: "12px", paddingBottom: "4px" }}>
               <div style={{ width: "36px", height: "3px", borderRadius: "2px", background: "rgba(228,228,223,0.18)" }} />
             </div>
-
-            {/* Image */}
             <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%", background: "#111", marginTop: "8px" }}>
               <img
                 src={selectedWork.imageSrc}
@@ -355,13 +354,9 @@ export default function Work() {
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
                 onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
               />
-              {/* Overlay */}
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #1E1E1E 0%, transparent 50%)" }} />
             </div>
-
-            {/* Content */}
             <div style={{ padding: "20px 24px 40px" }}>
-              {/* Category + year */}
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
                 <span style={{ fontSize: "8px", letterSpacing: "0.2em", color: "rgba(228,228,223,0.4)", textTransform: "uppercase" }}>
                   {selectedWork.category}
@@ -371,61 +366,30 @@ export default function Work() {
                   {selectedWork.year}
                 </span>
               </div>
-
-              {/* Title */}
               <h3 style={{ fontSize: "clamp(16px,4.5vw,20px)", fontWeight: 500, color: "#D6D6D6", margin: "0 0 16px", lineHeight: 1.3, letterSpacing: "-0.02em" }}>
                 {selectedWork.title}
               </h3>
-
-              {/* Divider */}
               <div style={{ height: "1px", background: "rgba(228,228,223,0.07)", marginBottom: "16px" }} />
-
-              {/* Description */}
               <p style={{ fontSize: "13px", lineHeight: 1.7, color: "rgba(228,228,223,0.55)", margin: "0 0 24px", fontWeight: 300 }}>
                 {selectedWork.description}
               </p>
-
-              {/* Tech stack */}
               <div style={{ marginBottom: "28px" }}>
                 <span style={{ fontSize: "8px", letterSpacing: "0.2em", color: "rgba(228,228,223,0.3)", textTransform: "uppercase", display: "block", marginBottom: "10px" }}>
                   Tech Stack
                 </span>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                   {selectedWork.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      style={{
-                        fontSize: "10px",
-                        letterSpacing: "0.08em",
-                        color: "rgba(228,228,223,0.6)",
-                        border: "1px solid rgba(228,228,223,0.12)",
-                        padding: "4px 10px",
-                        textTransform: "uppercase",
-                      }}
-                    >
+                    <span key={tech} style={{ fontSize: "10px", letterSpacing: "0.08em", color: "rgba(228,228,223,0.6)", border: "1px solid rgba(228,228,223,0.12)", padding: "4px 10px", textTransform: "uppercase" }}>
                       {tech}
                     </span>
                   ))}
                 </div>
               </div>
-
-              {/* GitHub link */}
               <a
                 href={selectedWork.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "14px 16px",
-                  border: "1px solid rgba(228,228,223,0.12)",
-                  color: "#D6D6D6",
-                  textDecoration: "none",
-                  fontSize: "11px",
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                }}
+                style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px", border: "1px solid rgba(228,228,223,0.12)", color: "#D6D6D6", textDecoration: "none", fontSize: "11px", letterSpacing: "0.16em", textTransform: "uppercase" }}
               >
                 <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{ opacity: 0.7 }}>
@@ -435,22 +399,9 @@ export default function Work() {
                 </span>
                 <span style={{ opacity: 0.4 }}>↗</span>
               </a>
-
-              {/* Close */}
               <button
                 onClick={closePanel}
-                style={{
-                  marginTop: "12px",
-                  width: "100%",
-                  background: "none",
-                  border: "none",
-                  padding: "12px",
-                  fontSize: "9px",
-                  letterSpacing: "0.2em",
-                  color: "rgba(228,228,223,0.25)",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                }}
+                style={{ marginTop: "12px", width: "100%", background: "none", border: "none", padding: "12px", fontSize: "9px", letterSpacing: "0.2em", color: "rgba(228,228,223,0.25)", textTransform: "uppercase", cursor: "pointer" }}
               >
                 Close
               </button>
@@ -458,6 +409,128 @@ export default function Work() {
           </div>
         </>
       )}
+
+      {/* Desktop modal */}
+      {!isMobile && selectedWork && (
+        <WorkModal work={selectedWork} onClose={closePanel} />
+      )}
+    </>
+  );
+}
+
+function WorkModal({ work, onClose }: { work: WorkItem; onClose: () => void }) {
+  const [entering, setEntering] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setEntering(false), 10);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+
+  return (
+    <>
+      <div
+        onClick={onClose}
+        className="fixed inset-0 z-40 transition-opacity duration-300"
+        style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)", opacity: entering ? 0 : 1 }}
+      />
+      <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none p-6 lg:p-12">
+        <div
+          className="pointer-events-auto w-full bg-[#1E1E1E] transition-all duration-300"
+          style={{
+            maxWidth: "min(60rem, 92vw)",
+            border: "1px solid rgba(228,228,223,0.1)",
+            opacity: entering ? 0 : 1,
+            transform: entering ? "translateY(14px)" : "translateY(0)",
+            fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+          }}
+        >
+          {/* Header bar */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
+            <div className="flex items-center gap-4">
+              <span className="text-[9px] tracking-[0.22em] uppercase text-[#D6D6D6]/40">
+                {work.category}
+              </span>
+              <span className="w-px h-3 bg-white/10" />
+              <span className="text-[9px] tracking-[0.22em] text-[#D6D6D6]/20 font-mono">
+                {work.year}
+              </span>
+            </div>
+            <button
+              onClick={onClose}
+              className="flex items-center gap-2 text-[9px] tracking-[0.22em] uppercase text-white/25 hover:text-white/60 transition-colors duration-150 cursor-pointer"
+            >
+              <span>ESC</span>
+              <span className="text-white/15">✕</span>
+            </button>
+          </div>
+
+          {/* Image */}
+          <div className="relative w-full bg-[#141414] overflow-hidden" style={{ aspectRatio: "16/9" }}>
+            <img
+              src={work.imageSrc}
+              alt={work.imageAlt}
+              className="w-full h-full object-contain"
+              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+            />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.35) 100%)" }}
+            />
+          </div>
+
+          {/* Content */}
+          <div className="px-6 py-6 flex flex-col sm:flex-row gap-6 sm:gap-10">
+            <div className="flex-1 min-w-0">
+              <h3 className="text-lg font-normal leading-snug text-white/90 mb-2 tracking-tight">
+                {work.title}
+              </h3>
+              <p className="text-[13px] leading-relaxed text-white/40 mb-5">
+                {work.description}
+              </p>
+              <div>
+                <span className="block text-[8px] tracking-[0.22em] uppercase text-white/25 mb-2">
+                  Tech Stack
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {work.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-[9px] tracking-[0.1em] uppercase text-[#D6D6D6]/50 px-2.5 py-1"
+                      style={{ border: "1px solid rgba(228,228,223,0.1)" }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex sm:flex-col justify-between sm:justify-end items-end gap-3 shrink-0">
+              <a
+                href={work.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-[10px] tracking-[0.18em] uppercase text-[#D6D6D6]/50 hover:text-[#D6D6D6]/90 transition-colors duration-200 px-4 py-3"
+                style={{ border: "1px solid rgba(228,228,223,0.1)" }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style={{ opacity: 0.65, flexShrink: 0 }}>
+                  <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                </svg>
+                View on GitHub
+                <span className="opacity-40">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
@@ -471,39 +544,148 @@ const captionStyle: React.CSSProperties = {
   whiteSpace: "nowrap",
 };
 
-function WorkCard({ work, isActive, cardPx }: { work: WorkItem; isActive: boolean; cardPx: number }) {
+function WorkCard({
+  work,
+  isActive,
+  cardPx,
+  onOpen,
+}: {
+  work: WorkItem;
+  isActive: boolean;
+  cardPx: number;
+  onOpen: (w: WorkItem) => void;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const imgRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
+
+  const moveCursor = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!imgRef.current || !cursorRef.current) return;
+    const rect = imgRef.current.getBoundingClientRect();
+    cursorRef.current.style.left = `${e.clientX - rect.left}px`;
+    cursorRef.current.style.top = `${e.clientY - rect.top}px`;
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    moveCursor(e);
+    setIsHovered(true);
+  };
+
   const widthStyle = cardPx > 0 ? `${cardPx}px` : "60vw";
+
   return (
     <div
-      className="shrink-0 flex flex-col"
+      className="shrink-0 flex"
       style={{
         width: widthStyle,
+        gap: "14px",
         transition: "opacity 0.45s ease, transform 0.45s cubic-bezier(0.4,0,0.2,1)",
-        opacity: isActive ? 1 : 0.35,
-        transform: isActive ? "scale(1)" : "scale(0.97)",
+        opacity: isActive ? 1 : 0.38,
+        transform: isActive ? "scale(1)" : "scale(0.96)",
       }}
     >
-      <div className="w-full relative overflow-hidden bg-[#1a1a1a]" style={{ paddingBottom: "60%" }}>
-        <img
-          src={work.imageSrc}
-          alt={work.imageAlt}
-          className="absolute inset-0 w-full h-full object-cover"
-          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "rgba(46,46,46,0.4)", opacity: isActive ? 0 : 1, transition: "opacity 0.45s ease" }}
-        />
-      </div>
+      {/* Left accent rule */}
       <div
-        className="flex items-center justify-between mt-3 gap-4"
-        style={{ opacity: isActive ? 1 : 0.38, transition: "opacity 0.45s ease" }}
-      >
-        <span style={captionStyle}>{work.year}</span>
-        <span className="uppercase flex-1 text-center" style={{ ...captionStyle, letterSpacing: "0.07em", overflow: "hidden", textOverflow: "ellipsis" }}>
-          {work.title}
-        </span>
-        <span className="uppercase" style={captionStyle}>{work.category}</span>
+        style={{
+          width: "4px",
+          flexShrink: 0,
+          background: "#C09E72",
+          opacity: isActive ? 1 : 0.25,
+          transition: "opacity 0.45s ease",
+          alignSelf: "stretch",
+        }}
+      />
+
+      {/* Image + caption */}
+      <div className="flex flex-col flex-1 min-w-0">
+        {/* Image area */}
+        <div
+          ref={imgRef}
+          style={{
+            position: "relative",
+            width: "100%",
+            aspectRatio: "16/9",
+            background: "#1c1c1c",
+            cursor: "none",
+            overflow: "hidden",
+            boxShadow: isActive
+              ? "0 24px 56px rgba(0,0,0,0.65)"
+              : "none",
+            transition: "box-shadow 0.45s ease",
+          }}
+          onClick={() => onOpen(work)}
+          onMouseMove={moveCursor}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <img
+            src={work.imageSrc}
+            alt={work.imageAlt}
+            style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+          />
+
+          {/* Inactive dim overlay */}
+          <div
+            style={{
+              position: "absolute", inset: 0, pointerEvents: "none",
+              background: "rgba(47,47,47,0.5)",
+              opacity: isActive ? 0 : 1,
+              transition: "opacity 0.45s ease",
+            }}
+          />
+
+          {/* Custom cursor */}
+          <div
+            ref={cursorRef}
+            style={{
+              position: "absolute",
+              left: "-200px",
+              top: "-200px",
+              width: "72px",
+              height: "72px",
+              transform: "translate(-50%, -50%)",
+              borderRadius: "50%",
+              background: "rgba(10,10,10,0.88)",
+              border: "1px solid rgba(190,184,167,0.7)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pointerEvents: "none",
+              zIndex: 10,
+              opacity: isHovered ? 1 : 0,
+              transition: "opacity 0.18s ease",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+                fontSize: "8px",
+                letterSpacing: "0.22em",
+                color: "#BEB8A7",
+                textTransform: "uppercase",
+                userSelect: "none",
+              }}
+            >
+              View ↗
+            </span>
+          </div>
+        </div>
+
+        {/* Caption */}
+        <div
+          className="flex items-center justify-between mt-3 gap-4"
+          style={{ opacity: isActive ? 1 : 0.38, transition: "opacity 0.45s ease" }}
+        >
+          <span style={captionStyle}>{work.year}</span>
+          <span
+            className="uppercase flex-1 text-center"
+            style={{ ...captionStyle, letterSpacing: "0.07em", overflow: "hidden", textOverflow: "ellipsis" }}
+          >
+            {work.title}
+          </span>
+          <span className="uppercase" style={captionStyle}>{work.category}</span>
+        </div>
       </div>
     </div>
   );
