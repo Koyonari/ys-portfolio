@@ -8,7 +8,7 @@ interface ListProps {
   isMobile: boolean;
   onHover: (post: BlogPost | null) => void;
   selectedPost: BlogPost | null;
-  onOpen: (post: BlogPost) => void;   // ← NEW
+  onOpen: (post: BlogPost) => void;
 }
 
 export default function List({

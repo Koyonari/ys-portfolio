@@ -1,10 +1,36 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { type BlogPost, CAT_COLOR } from "@/types/blog";
+import { type BlogPost, type ContentBlock, CAT_COLOR } from "@/types/blog";
 import Header from "@/components/blog/header";
 import Pattern from "@/components/blog/patterncanvas";
 import Footer from "@/components/main/footer";
+
+function renderBlocks(blocks: ContentBlock[]) {
+  return blocks.map((block, i) => {
+    switch (block.type) {
+      case "p":
+        return <p key={i}>{block.text}</p>;
+      case "spacer":
+        return <div key={i} className="post-spacer" />;
+      case "h2":
+        return <h2 key={i}>{block.text}</h2>;
+      case "h3":
+        return <h3 key={i}>{block.text}</h3>;
+      case "img":
+        return (
+          <figure key={i}>
+            <img src={block.src} alt={block.alt ?? ""} loading="lazy" />
+            {block.caption && <figcaption>{block.caption}</figcaption>}
+          </figure>
+        );
+      case "hr":
+        return <hr key={i} />;
+      case "quote":
+        return <blockquote key={i}><p>{block.text}</p></blockquote>;
+    }
+  });
+}
 
 interface PostDetailProps {
   post: BlogPost;
@@ -81,7 +107,17 @@ export default function PostDetail({ post, onBack }: PostDetailProps) {
           color: rgba(228,228,223,0.5);
           margin: 2rem 0 0.5rem;
         }
-        .post-body p { margin: 0 0 1.4rem; }
+        .post-body p { margin: 0; }
+        .post-spacer { height: 1.4rem; }
+        .post-body figure { margin: 2rem 0; }
+        .post-body figure img { width: 100%; display: block; border: 1px solid var(--rule); }
+        .post-body figcaption {
+          margin-top: 0.5rem;
+          font-size: 11px;
+          letter-spacing: 0.06em;
+          text-align: center;
+          color: rgba(228,228,223,0.3);
+        }
         .post-body a {
           color: var(--fg);
           text-decoration: underline;
@@ -339,9 +375,10 @@ export default function PostDetail({ post, onBack }: PostDetailProps) {
             {/* Body */}
             <div
               className="post-body fade-up"
-              style={{ animationDelay: "0.26s", maxWidth: "68ch" }}
-              dangerouslySetInnerHTML={{ __html: post.content ?? post.excerpt }}
-            />
+              style={{ animationDelay: "0.26s" }}
+            >
+              {post.content ? renderBlocks(post.content) : <p>{post.excerpt}</p>}
+            </div>
 
             {/* Footer */}
             <div
