@@ -137,7 +137,7 @@ export default function Footer({ id }:any) {
         {/* Bottom bar */}
         <div className="border-t border-[#f0ede8]/10 px-[clamp(1.25rem,4vw,4rem)] py-5">
           <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-3">
-            <span className="text-[10px] lg:text-xs text-[#f0ede8]/40">Last Updated in May 2026</span>
+            <span className="text-[10px] lg:text-xs text-[#f0ede8]/40">Last Updated in June 2026</span>
             <span className="text-[10px] lg:text-xs text-[#f0ede8]/40">
               Local Time: <span className="font-mono">{singaporeTime || "—"}</span>
             </span>

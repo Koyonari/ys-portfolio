@@ -98,15 +98,14 @@ export default function Hero() {
           animation-delay: 2s;
         }
 
-        /* ── Mobile: single column, photo becomes background ── */
+        /* ── Mobile: single column, show photo column only ── */
         @media (max-width: 639px) {
           .hs {
             --photo-w: 0px;
             --margin: 1.2rem;
+            grid-template-columns: 0px 1fr !important;
           }
-          .hs-photo-col { display: none !important; }
-          .hs-name { font-size: clamp(44px, 12vw, 72px) !important; }
-          .hs-role { font-size: 10px !important; }
+          .hs-photo-col { display: block !important; }
           .hs-works-col { display: none !important; }
           .hs-bio-col { display: none !important; }
         }
@@ -117,6 +116,11 @@ export default function Hero() {
           .hs-name { font-size: clamp(48px, 9vw, 80px) !important; }
           .hs-works-col { display: none !important; }
           .hs-bio-col { display: none !important; }
+        }
+
+        /* ── Wide desktop ── */
+        @media (min-width: 1440px) {
+          .hs { --photo-w: clamp(440px, 38vw, 480px); }
         }
       `}</style>
 
@@ -134,7 +138,7 @@ export default function Hero() {
 
         {/* Background image */}
         <Image
-          src="/hero/ph2.jpg"
+          src="/about/tigerleaping.jpg"
           alt=""
           fill
           priority
@@ -177,7 +181,7 @@ export default function Hero() {
           style={{ gridColumn: "2", gridRow: "1 / 5", zIndex: 3 }}
         >
           <Image
-            src="/hero/ph1.jpg"
+            src="/about/cq4.jpg"
             alt="Yong Shyan"
             fill
             priority
@@ -194,7 +198,7 @@ export default function Hero() {
             style={{ zIndex: 4, padding: "0 var(--margin) calc(var(--margin) + 1.8rem) 0", gap: "3px" }}
           >
             <span style={{ fontSize: "8px", letterSpacing: "0.18em", color: "var(--muted-bright)", textTransform: "uppercase" }}>
-              ph1.jpg
+              ys.jpg
             </span>
             <span style={{ fontSize: "8px", letterSpacing: "0.14em", color: "var(--muted)", textTransform: "uppercase" }}>
               Portrait — 2025
@@ -237,7 +241,7 @@ export default function Hero() {
 
           {[
             { n: "4", index: "01", title: "Blog", tags: "My thoughts", href: "/blog" },
-            { n: "5", index: "02", title: "Certifications & Awards", tags: "my accolades & credentials", href: "#certs" },
+            { n: "5", index: "02", title: "Acolades", tags: "my credentials and certifications", href: "#certs" },
             { n: "6", index: "03", title: "Contact Me", tags: "Contact me on LinkedIn / Email / Whatsapp", href: "#footer" },
           ].map((work, i) => (
             <a

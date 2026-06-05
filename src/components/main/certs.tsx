@@ -9,32 +9,44 @@ interface Certificate {
   title: string;
   issuer: string;
   year: number;
-  category: "Competition" | "Programme" | "Award" | "Course" | "Certification";
+  category: "Competition" | "Award" | "Certification";
 }
 
-const CATEGORIES = ["Competition", "Programme", "Award", "Course", "Certification"] as const;
+const CATEGORIES = ["Competition", "Award", "Certification"] as const;
 type CatKey = typeof CATEGORIES[number];
 
 const CAT_COLOR: Record<CatKey, string> = {
   Competition: "#BE7E7E",
-  Programme: "#7EAABE",
   Award: "#C8AA6E",
-  Course: "#A27EBE",
-  Certification: "#7E8FBE",
+  Certification: "#A27EBE",
 };
 
 const certs: Certificate[] = [
-  { id: 1, image: "/certs/NYP YCEP 2021 Certificate.png", title: "Youth Cyber Exploration Programme (YCEP)", issuer: "CSA", year: 2021, category: "Programme" },
-  { id: 2, image: "/certs/Central CTF Youth Cyber Exploration Programme 2021 Certificate.png", title: "Central CTF YCEP", issuer: "CSA, Cybint", year: 2021, category: "Competition" },
-  { id: 3, image: "/certs/AYCEP 2021.jpg", title: "Advanced Youth Cyber Exploration Programme", issuer: "CSA, Cloudsine", year: 2021, category: "Programme" },
-  { id: 4, image: "/certs/Brainhack 2021 Certificate.jpg", title: "BrainHack 2021", issuer: "DSTA", year: 2021, category: "Competition" },
-  { id: 5, image: "/certs/BrainHack 2024 Certificate.jpg", title: "BrainHack 2024", issuer: "DSTA", year: 2024, category: "Competition" },
-  { id: 6, image: "/certs/BuildingBloCS 2021 Certificate.jpg", title: "BuildingBloCS 2021", issuer: "SIMCC, CTE-STEM", year: 2021, category: "Programme" },
-  { id: 7, image: "/certs/Hack@AC 2021 Certificate.jpg", title: "Hack@AC 2021", issuer: "CSA", year: 2021, category: "Competition" },
-  { id: 8, image: "/certs/THC 2021 Certificate.png", title: "Threat Hunting Challenge", issuer: "CSA, Elastic", year: 2021, category: "Competition" },
-  { id: 9, image: "/certs/TISC 2023 Organising Team - TISC 2023 Badge of Participation - 2023-10-13.png", title: "The InfoSecurity Challenge", issuer: "CSIT", year: 2023, category: "Competition" },
-  { id: 10, image: "/certs/Professional Scrum Master I.png", title: "Professional Scrum Master I", issuer: "Scrum.org", year: 2024, category: "Certification" },
-  { id: 11, image: "/certs/Ngee Ann Kongsi Tertiary Study Award.png", title: "Ngee Ann Kongsi Award", issuer: "Ngee Ann Kongsi", year: 2024, category: "Award" },
+  // Award
+  { id: 1,  image: "/certs/directorslisty2s2.jpg", title: "Director's List Year 2 Semester 2", issuer: "Ngee Ann Polytechnic", year: 2025, category: "Award" },
+  { id: 2,  image: "/certs/directorslisty2s1.jpg", title: "Director's List Year 2 Semester 1", issuer: "Ngee Ann Polytechnic", year: 2024, category: "Award" },
+  { id: 3,  image: "/certs/oracleinternship.jpg", title: "Oracle Internship 2025-2026", issuer: "Oracle", year: 2025, category: "Award" },
+  { id: 4,  image: "/certs/nak2025.png", title: "Ngee Ann Kongsi Study Award 2025/2026", issuer: "Ngee Ann Kongsi", year: 2025, category: "Award" },
+  { id: 5,  image: "/certs/nak2024.png", title: "Ngee Ann Kongsi Study Award 2024/2025", issuer: "Ngee Ann Kongsi", year: 2024, category: "Award" },
+  { id: 6,  image: "/certs/edusavemerit2025.jpg", title: "Edusave Merit Bursary 2025", issuer: "Ministry of Education Singapore", year: 2025, category: "Award" },
+  { id: 7,  image: "/certs/edusavecert2025.jpg", title: "Edusave Certificate of Academic Achievement 2025", issuer: "Ministry of Education Singapore", year: 2025, category: "Award" },
+  // Certification  
+  { id: 8,  image: "/certs/oraclecert.png", title: "Oracle Cloud Infrastructure 2025 Foundations Associate", issuer: "Oracle", year: 2025, category: "Certification" },
+  { id: 9,  image: "/certs/oracleai.png", title: "Oracle Cloud Infrastructure 2025 AI Foundations Associate", issuer: "Oracle", year: 2025, category: "Certification" },
+  { id: 10, image: "/certs/oracleapex.png", title: "Oracle APEX Foundations", issuer: "Oracle", year: 2025, category: "Certification" },
+  { id: 11, image: "/certs/Professional Scrum Master I.png", title: "Professional Scrum Master I", issuer: "Scrum.org", year: 2024, category: "Certification" },
+  { id: 12, image: "/certs/FoundationsofProjectManagement.png", title: "Foundations of Project Management", issuer: "Google", year: 2024, category: "Certification" },
+  // Competition
+  { id: 13, image: "/certs/SIL2025_AnYongShyan.jpg", title: "Singapore Informatics League 2025", issuer: "NUS Centre for Nurturing Computing Excellence (CeNCE)", year: 2025, category: "Competition" },
+  { id: 14, image: "/certs/BrainHack 2024 Certificate.jpg", title: "BrainHack 2024", issuer: "DSTA", year: 2024, category: "Competition" },
+  { id: 15, image: "/certs/Brainhack 2021 Certificate.jpg", title: "BrainHack 2021", issuer: "DSTA", year: 2021, category: "Competition" },
+  { id: 16, image: "/certs/TISC 2023 Organising Team - TISC 2023 Badge of Participation - 2023-10-13.png", title: "The InfoSecurity Challenge", issuer: "CSIT", year: 2023, category: "Competition" },
+  { id: 17, image: "/certs/NYP YCEP 2021 Certificate.png", title: "Youth Cyber Exploration Programme (YCEP)", issuer: "CSA", year: 2021, category: "Competition" },
+  { id: 18, image: "/certs/Central CTF Youth Cyber Exploration Programme 2021 Certificate.png", title: "Central CTF YCEP", issuer: "CSA, Cybint", year: 2021, category: "Competition" },
+  { id: 19, image: "/certs/AYCEP 2021.jpg", title: "Advanced Youth Cyber Exploration Programme", issuer: "CSA, Cloudsine", year: 2021, category: "Competition" },
+  { id: 20, image: "/certs/BuildingBloCS 2021 Certificate.jpg", title: "BuildingBloCS 2021", issuer: "SIMCC, CTE-STEM", year: 2021, category: "Competition" },
+  { id: 21, image: "/certs/Hack@AC 2021 Certificate.jpg", title: "Hack@AC 2021", issuer: "CSA", year: 2021, category: "Competition" },
+  { id: 22, image: "/certs/THC 2021 Certificate.png", title: "Threat Hunting Challenge 2021", issuer: "CSA, Elastic", year: 2021, category: "Competition" },
 ];
 
 const PAGE_SIZE = 6;
@@ -79,7 +91,7 @@ export default function Certs({ id }: CertsProps) {
             {/* Header */}
             <div className="flex items-baseline justify-between">
               <h2 className="font-bold text-[#D6D6D6]" style={{ fontSize: "clamp(36px,10vw,70px)" }}>
-                Certifications
+                Acolades
               </h2>
               <span className="text-[11px] tracking-[0.2em] uppercase text-white/25">
                 {visibleCerts.length} / {allFiltered.length}
@@ -171,7 +183,7 @@ export default function Certs({ id }: CertsProps) {
 
             <main className="flex-1 min-w-0">
               <div className="flex items-baseline justify-between mb-5">
-                <h2 className="text-[clamp(48px,5vw,70px)] font-bold text-[#D6D6D6]">Certifications</h2>
+                <h2 className="text-[clamp(48px,5vw,70px)] font-bold text-[#D6D6D6]">Acolades</h2>
                 <span className="text-[11px] tracking-[0.2em] uppercase text-white/25">{visibleCerts.length} / {allFiltered.length}</span>
               </div>
 

@@ -17,13 +17,13 @@ interface WorkItem {
 const works: WorkItem[] = [
   {
     id: 1,
-    year: "2025",
+    year: "2026",
     title: "Portfolio",
     category: "Front-End Development",
     description: "The portfolio site you're looking at right now. Rebuilt from scratch with a focus on scroll-driven interactions, custom cursor effects, and a minimal typographic aesthetic.",
     techStack: ["Next.js", "TypeScript", "TailwindCSS"],
     githubUrl: "https://github.com/Koyonari/ys-portfolio",
-    imageSrc: "/works/portfolio.png",
+    imageSrc: "/works/portfolio.jpg",
     imageAlt: "Portfolio",
   },
   {
@@ -42,7 +42,7 @@ const works: WorkItem[] = [
     year: "2024",
     title: "BannerBites",
     category: "Full-Stack Development",
-    description: "A dynamic digital signage platform that allows real-time ad placement via a drag-and-drop editor. Built for FSDIT03 with WebSocket-driven live updates and S3-backed media storage.",
+    description: "A dynamic digital signage platform that allows real-time ad placement via a drag-and-drop editor. Built for an assignment in FSDIT03 with WebSocket-driven live updates and S3-backed media storage.",
     techStack: ["React.js", "S3", "WebSocket", "Node.js"],
     githubUrl: "https://github.com/Koyonari/BannerBites_FSDIT03",
     imageSrc: "/works/bannerbites.png",
@@ -53,7 +53,7 @@ const works: WorkItem[] = [
     year: "2024",
     title: "PlanHub",
     category: "Mobile App Development",
-    description: "An Android productivity app for task and event planning with a clean calendar-driven interface. Developed as a team project for MAD24 using native Java and local SQLite storage.",
+    description: "An Android productivity app for task and event planning with a clean calendar-driven interface. Developed as a team project for an assignment in MAD24 using native Java and local SQLite storage.",
     techStack: ["Java"],
     githubUrl: "https://github.com/RISHIKEsH12321/MAD24_P01_Team3",
     imageSrc: "/works/planhub.png",
