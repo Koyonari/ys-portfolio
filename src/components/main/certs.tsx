@@ -33,7 +33,7 @@ const certs: Certificate[] = [
   // Certification  
   { id: 8,  image: "/certs/oraclecert.png", title: "Oracle Cloud Infrastructure 2025 Foundations Associate", issuer: "Oracle", year: 2025, category: "Certification" },
   { id: 9,  image: "/certs/oracleai.png", title: "Oracle Cloud Infrastructure 2025 AI Foundations Associate", issuer: "Oracle", year: 2025, category: "Certification" },
-  { id: 10, image: "/certs/oracleapex.png", title: "Oracle APEX Foundations", issuer: "Oracle", year: 2025, category: "Certification" },
+  { id: 10, image: "/certs/oracleapex.png", title: "Oracle APEX Foundations 2025", issuer: "Oracle", year: 2025, category: "Certification" },
   { id: 11, image: "/certs/Professional Scrum Master I.png", title: "Professional Scrum Master I", issuer: "Scrum.org", year: 2024, category: "Certification" },
   { id: 12, image: "/certs/FoundationsofProjectManagement.png", title: "Foundations of Project Management", issuer: "Google", year: 2024, category: "Certification" },
   // Competition
