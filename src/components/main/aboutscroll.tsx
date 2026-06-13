@@ -41,7 +41,7 @@ const IMAGES: {
       initY: 40, left: "64%", leftMobile: "73%",
       width: "clamp(165px, 17vw, 242px)", widthMd: "clamp(108px, 12.5vw, 162px)", widthSm: "clamp(90px, 23vw, 130px)",
       speed: -1.6, speedMd: -1.1, speedSm: -1.4,
-      delay: 0.10, aspect: "75%", src: "/about/cateat.jpg",
+      delay: 0.10, aspect: "75%", src: "/about/hakone.jpg",
     },
     {
       initY: -36, left: "26%", leftMobile: "3%",
@@ -59,7 +59,7 @@ const IMAGES: {
       initY: 50, left: "78%", leftMobile: "72%",
       width: "clamp(103.1px, 10.6vw, 153.1px)", widthMd: "clamp(68.75px, 8.1vw, 103.1px)", widthSm: "clamp(75px, 19vw, 110px)",
       speed: -0.6, speedMd: -0.4, speedSm: -0.5,
-      delay: 0.13, aspect: "150%", src: "/about/redlantern.jpg",
+      delay: 0.13, aspect: "150%", src: "/about/enoshima.jpg",
     },
     {
       initY: 60, left: "22.5%", leftMobile: "2%",
